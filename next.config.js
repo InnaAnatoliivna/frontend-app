@@ -4,7 +4,7 @@ const nextConfig = {}
 module.exports = nextConfig
 
 
-// module.exports = {
+// const nextConfig = {
 //     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
 //         // Add a rule to ignore name conflicts
 //         config.module.rules.push({
@@ -21,22 +21,24 @@ module.exports = nextConfig
 //         return config;
 //     },
 // };
+// module.exports = nextConfig
+
 
 // next.config.js
-module.exports = {
-    webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-        // Додаємо правило для вирішення конфлікту імен в @mui/material
-        config.module.rules.push({
-            test: /@mui[\/\\]material/,
-            resolve: {
-                alias: {
-                    '@mui/system': '@mui/system/esm/system.js',
-                },
-            },
-        });
+// module.exports = {
+//     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+//         // Додаємо правило для вирішення конфлікту імен в @mui/material
+//         config.module.rules.push({
+//             test: /@mui[\/\\]material/,
+//             resolve: {
+//                 alias: {
+//                     '@mui/system': '@mui/system/esm/system.js',
+//                 },
+//             },
+//         });
 
-        return config;
-    },
-};
+//         return config;
+//     },
+// };
 
 

@@ -2,6 +2,7 @@ import ToggleColorMode from "./ToggleColorMode";
 import "../globals.css";
 import { Roboto } from "next/font/google";
 import Navigation from "./Navigation";
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 
 export const roboto = Roboto({
     weight: ["300", "400", "500", "700"],
@@ -19,7 +20,7 @@ const MainContainer = ({ children }) => {
         //     <body className={roboto.className}>
         <ToggleColorMode>
             <Navigation />
-            {children}
+            <AppRouterCacheProvider options={{ enableCssLayer: true }}>{children}</AppRouterCacheProvider>
         </ToggleColorMode>
         // </body>
         // </html>
