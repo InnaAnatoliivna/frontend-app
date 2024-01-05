@@ -38,6 +38,7 @@ const SignInButton = ({ children }) => {
             },
           },
         }}
+
       >
         {children}
       </Button>
@@ -54,10 +55,10 @@ const SignInButton = ({ children }) => {
             "& .MuiButton-startIcon": {
               backgroundColor:
                 theme.palette.mode === "dark"
-                  ? "rgb(57, 57, 57)"
-                  : "rgb(255, 248, 251)",
+                  ? "rgb(240, 98, 146);"
+                  : "rgb(255, 64, 129);",
               "& svg": {
-                color: "rgb(255, 64, 129)",
+                color: "rgb(255, 255, 255)",
               },
             },
           }}
