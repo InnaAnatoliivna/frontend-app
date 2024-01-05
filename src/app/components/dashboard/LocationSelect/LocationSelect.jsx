@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Popover, Typography } from "@mui/material";
 import styled from "@emotion/styled";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 
 const PopoverStyled = styled(Popover)(({ theme }) => ({
@@ -34,6 +35,7 @@ const LocationSelect = ({ children }) => {
                 variant="contained"
                 onClick={handleClick}
                 startIcon={<LocationOnIcon />}
+                endIcon={<KeyboardArrowDownIcon />}
             >
                 Location
             </Button>

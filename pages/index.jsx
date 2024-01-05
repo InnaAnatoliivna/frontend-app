@@ -9,7 +9,7 @@ const Index = () => {
         <MainContainer>
             <div>
                 <SearchInput />
-                <LocationSelect></LocationSelect>
+                <LocationSelect>Content</LocationSelect>
             </div>
         </MainContainer>
     )
