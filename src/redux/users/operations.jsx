@@ -1,7 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-axios.defaults.baseURL = 'https://lawyerappwebapi.azurewebsites.net';
+import api from '../api/serviceApi';
 
 /**
  * GET @ api/Users/{id}
@@ -9,7 +7,7 @@ axios.defaults.baseURL = 'https://lawyerappwebapi.azurewebsites.net';
  */
 export const fetchUsers = createAsyncThunk('api/Users', async (idUser, thunkAPI) => {
     try {
-        const { data } = await axios.get(`/api/Users/${idUser}`, user);
+        const { data } = await api.get(`/api/Users/${idUser}`, user);
         return data;
     } catch (e) {
         return thunkAPI.rejectWithValue(e.message)

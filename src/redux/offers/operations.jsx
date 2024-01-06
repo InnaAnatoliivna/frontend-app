@@ -1,7 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-axios.defaults.baseURL = 'https://lawyerappwebapi.azurewebsites.net';
+import api from '../api/serviceApi';
 
 /**
  * POST @ /api/Offers/Create
@@ -9,7 +7,7 @@ axios.defaults.baseURL = 'https://lawyerappwebapi.azurewebsites.net';
  */
 export const addOffers = createAsyncThunk('api/Offers/Create', async (offerData, thunkAPI) => {
     try {
-        const { data } = await axios.post('/api/Offers/Create', offerData);
+        const { data } = await api.post('/api/Offers/Create', offerData);
         console.log('created offer:', data);
         return data;
     } catch (e) {
@@ -18,12 +16,12 @@ export const addOffers = createAsyncThunk('api/Offers/Create', async (offerData,
 });
 
 /**
- * POST @ /api/Offers/Update
+ * PUT @ /api/Offers/Update
  * @param {Object} offerData - The data for updating an existing offer
  */
 export const updateOffers = createAsyncThunk('api/Offers/Update', async (offerData, thunkAPI) => {
     try {
-        const { data } = await axios.put('/api/Offers/Update', offerData);
+        const { data } = await api.put('/api/Offers/Update', offerData);
         console.log('update offer:', data);
         return data;
     } catch (e) {

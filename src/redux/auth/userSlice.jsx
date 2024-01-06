@@ -1,27 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { loginUser, refreshUser, signUpUser } from './operations'
-
-const handlePending = (state) => {
-    state.isLoading = true
-    state.error = ''
-}
-
-const handleFulfilled = (state) => {
-    state.isLoading = false
-}
-
-const handleRejected = (state, { payload }) => {
-    state.isLoading = false
-    state.error = payload.error
-}
-
-const handleFulfilledSignUp = (state, { payload }) => {
-    state.token = payload.token
-    state.user = payload.user
-    state.isLoggedIn = true
-    state.token = payload.token
-    state.isRefreshing = false
-}
+import { handleFulfilled, handleFulfilledSignUp, handlePending, handleRejected } from '../api/apiHandlers';
 
 const initialState = {
     user: { name: null, email: null },
@@ -30,7 +9,7 @@ const initialState = {
     isLoggedIn: false,
     error: '',
     isRefreshing: false,
-}
+};
 
 const userSlice = createSlice({
     name: 'auth',
@@ -59,7 +38,9 @@ const userSlice = createSlice({
             .addCase(refreshUser.rejected, (state) => {
                 state.isRefreshing = false;
             })
-            .addMatcher(({ type }) => type.endsWith('/pending'), handlePending)
+            .addMatcher(({ type }) => type.endsWith('/pending'),
+                handlePending
+            )
             .addMatcher(
                 ({ type }) => type.endsWith('/fulfilled'),
                 handleFulfilled
@@ -68,7 +49,7 @@ const userSlice = createSlice({
                 ({ type }) => type.endsWith('/rejected'),
                 handleRejected
             ),
-})
+});
 
-export const authReducer = userSlice.reducer
-export const { logOut } = userSlice.actions
+export const authReducer = userSlice.reducer;
+export const { logOut } = userSlice.actions;
