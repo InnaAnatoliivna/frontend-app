@@ -39,4 +39,4 @@ const jobsSlice = createSlice({
     },
 });
 
-export default jobsSlice.reducer;
+export const jobsReducer = jobsSlice.reducer;

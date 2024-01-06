@@ -32,4 +32,4 @@ const offersSlice = createSlice({
     },
 });
 
-export default offersSlice.reducer;
+export const offersReducer = offersSlice.reducer;

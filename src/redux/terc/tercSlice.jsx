@@ -23,4 +23,4 @@ const provincesSlice = createSlice({
     },
 });
 
-export default provincesSlice.reducer;
+export const provincesReducer = provincesSlice.reducer;
