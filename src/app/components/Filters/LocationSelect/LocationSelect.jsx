@@ -10,7 +10,7 @@ const PopoverStyled = styled(Popover)(({ theme }) => ({
     flexDirection: "column",
     ".MuiPopover-paper": {
         margin: "32px 16px 0px 0px",
-        padding: "8px 16px",
+        padding: "8px 24px",
         backgroundColor: theme.palette.mode === "dark" ? "#121212" : "#ffffff",
     },
 }));

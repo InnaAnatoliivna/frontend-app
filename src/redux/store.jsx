@@ -11,7 +11,7 @@ import {
 } from 'redux-persist'
 import { jobsReducer } from './jobs/jobsSlice';
 import { authReducer } from './auth/userSlice';
-import { mapsTilesPeducer } from './mapTiles/mapTilesSlice';
+import { mapsTilesReducer } from './mapTiles/mapTilesSlice';
 import { offersReducer } from './offers/offersSlice';
 import { citiesReducer } from './simc/simsSlice';
 import { provincesReducer } from './terc/tercSlice';
@@ -27,7 +27,7 @@ export const store = configureStore({
     reducer: {
         auth: persistReducer(authPersistConfig, authReducer),
         jobs: jobsReducer,
-        maps: mapsTilesPeducer,
+        maps: mapsTilesReducer,
         offers: offersReducer,
         cities: citiesReducer,
         provinces: provincesReducer,

@@ -20,16 +20,16 @@ export const fetchAllJobs = createAsyncThunk('api/Jobs/GetJobs', async (_, thunk
 );
 
 /*
- * GET @ /api/Jobs/GetJobs/${id}
+ * GET @ /api/Jobs/GetJob/${id}
  * idJob: number
  */
-export const fetchJobById = createAsyncThunk('api/Jobs/GetJobs', async (id, thunkAPI) => {
+export const fetchJobById = createAsyncThunk('api/Jobs/GetJob', async (id, thunkAPI) => {
     try {
         const state = thunkAPI.getState();
         const token = state.auth.token; // Do you need auth here???
         const headers = { Authorization: `Bearer ${token}` };
 
-        const { data } = await api.get(`/api/Jobs/GetJobs/${id}`, { headers });
+        const { data } = await api.get(`/api/Jobs/GetJob/${id}`, { headers });
         console.log('got job by ID :', data)
         return data;
     } catch (e) {

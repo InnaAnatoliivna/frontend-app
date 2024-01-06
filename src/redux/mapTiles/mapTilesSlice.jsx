@@ -33,4 +33,4 @@ const mapsSlice = createSlice({
     },
 });
 
-export const mapsTilesPeducer = mapsSlice.reducer;
+export const mapsTilesReducer = mapsSlice.reducer;

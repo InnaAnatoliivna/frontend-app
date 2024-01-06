@@ -10,7 +10,7 @@ const SearchInput = () => {
             <Input
                 placeholder='Search'
                 sx={{
-                    height: '40px',
+                    height: '100%',
                     paddingLeft: '20px',
                     paddingRight: '10px',
                     border:

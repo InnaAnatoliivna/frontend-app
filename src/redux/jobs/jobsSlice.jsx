@@ -25,17 +25,22 @@ const jobsSlice = createSlice({
             .addCase(fetchJobById.fulfilled, (state, action) => {
                 state.jobDetails = action.payload;
             })
+            .addCase(fetchJobById.rejected, handleRejectedSecond)
             //
             .addCase(addJob.fulfilled, (state, action) => {
                 state.jobs.push(action.payload);
             })
+            .addCase(addJob.rejected, handleRejectedSecond)
             //
             .addCase(deleteJob.fulfilled, (state, action) => {
                 state.jobs = state.jobs.filter(job => job.id !== action.payload.id);
             })
+            .addCase(deleteJob.rejected, handleRejectedSecond)
+            //
             .addCase(updateJobs.fulfilled, (state, action) => {
                 state.jobs = state.jobs.map(job => (job.id === action.payload.id ? action.payload : job));
-            });
+            })
+            .addCase(updateJobs.rejected, handleRejectedSecond)
     },
 });
 

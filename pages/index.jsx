@@ -1,17 +1,17 @@
-import SearchInput from '@/app/components/dashboard/SearchInput/SearchInput'
-import MainContainer from '../src/app/components/MainContainer'
-import React from 'react'
-import LocationSelect from '@/app/components/dashboard/LocationSelect/LocationSelect'
+import React from 'react';
+import SharedLayout from '../src/app/components/SharedLayout';
+import Container from '@/app/components/Container/Container';
+import FiltersPanel from '@/app/components/Filters/FiltersPanel/FiltersPanel';
+
 
 const Index = () => {
 
     return (
-        <MainContainer>
-            <div>
-                <SearchInput />
-                <LocationSelect>Content</LocationSelect>
-            </div>
-        </MainContainer>
+        <SharedLayout>
+            <Container>
+                <FiltersPanel />
+            </Container>
+        </SharedLayout>
     )
 }
 
