@@ -1,9 +1,9 @@
-export const selectIsMapTiles = state => state.auth.mapTiles;
+export const selectIsMapTiles = state => state.maps.mapTiles;
 
-export const selectBaseMap = state => state.auth.base64Map;
+export const selectBaseMap = state => state.maps.base64Map;
 
-export const selectIsLoading = state => state.auth.isLoading;
+export const selectIsLoading = state => state.maps.isLoading;
 
-export const selectError = state => state.auth.error;
+export const selectError = state => state.maps.error;
 
 

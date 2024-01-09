@@ -2,20 +2,20 @@ import { Box, useTheme } from "@mui/material";
 import Header from "./navigation/Header";
 import MenuIcon from "@mui/icons-material/Menu";
 import Nav from "./navigation/Nav";
-import MenuLink from "./navigation/MenuLink";
-import CurrencySwitch from "./navigation/CurrencySwitch";
+// import MenuLink from "./navigation/MenuLink";
+// import CurrencySwitch from "./navigation/CurrencySwitch";
 import ThemeSwitchButton from "./navigation/ThemeSwitchButton";
 import { ColorModeContext } from "./ToggleColorMode";
 import { useContext, useState } from "react";
 import IconButton from "./navigation/IconButton";
 import Logo from "./navigation/Logo";
-import Description from "./navigation/Description";
+// import Description from "./navigation/Description";
 import Button from "@mui/material/Button";
 import SignInButton from "./navigation/SignInButton";
 import Link from "next/link";
-import MenuLinksBox from "./navigation/MenuLinksBox";
+// import MenuLinksBox from "./navigation/MenuLinksBox";
 import Sidebar from "./navigation/SidebarMenu/Sidebar";
-import { menuElements } from "../../utils/menuElements";
+// import { menuElements } from "../../utils/menuElements";
 
 const Navigation = () => {
   const theme = useTheme();
@@ -27,29 +27,39 @@ const Navigation = () => {
       <Logo />
 
       <Nav>
-        <Description>#1 Job Board for tech industry in Europe</Description>
+        {/* <Description>#1 Job Board for tech industry in Europe</Description> */}
         <ThemeSwitchButton
           checked={mode === "dark"}
           onChange={handleToggleColorMode}
           theme={theme}
         />
-        <MenuLinksBox>
+        {/* <MenuLinksBox>
           {menuElements.map((node) => (
             <MenuLink key={node.title} href={node.href}>
               {node.title}
             </MenuLink>
           ))}
-        </MenuLinksBox>
+        </MenuLinksBox> */}
         <Button
           LinkComponent={Link}
           variant="outlined"
           href="/add-offer"
-          sx={{ [theme.breakpoints.down("laptop")]: { display: "none" } }}
+          sx={{
+            [theme.breakpoints.down("laptop")]: { display: "none" },
+            borderRadius: 'var(--border-radius-btn)',
+            "&:hover": {
+              backgroundColor:
+                theme.palette.mode === "dark"
+                  ? "#fb3938;"
+                  : "#fb3938;",
+            },
+
+          }}
         >
-          Post a Job
+          Post an Offer
         </Button>
         <SignInButton>Sign in</SignInButton>
-        <CurrencySwitch />
+        {/* <CurrencySwitch /> */}
       </Nav>
       <Box
         width="68px"

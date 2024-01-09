@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import SearchInput from '../SearchInput/SearchInput';
 import LocationSelect from '../LocationSelect/LocationSelect';
+import JobTypeList from '../JobTypeList/JobTypeList';
 
 const Panel = styled.div`
     height: 90px;
@@ -15,6 +16,7 @@ const FiltersPanel = () => {
         <Panel>
             <SearchInput />
             <LocationSelect>Content</LocationSelect>
+            <JobTypeList />
         </Panel>
     )
 }

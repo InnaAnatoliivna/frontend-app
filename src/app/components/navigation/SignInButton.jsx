@@ -3,8 +3,8 @@ import Button from "@mui/material/Button";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import SignInSelect from "./SignInElements/SignInSelect";
 import SignInSelectButton from "./SignInElements/SignInSelectButton";
-import FaceOutlinedIcon from "@mui/icons-material/FaceOutlined";
-import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
+import PortraitSharpIcon from '@mui/icons-material/PortraitSharp';
+import BusinessCenterSharpIcon from '@mui/icons-material/BusinessCenterSharp';
 import { useTheme } from "@mui/material";
 
 const SignInButton = ({ children }) => {
@@ -30,12 +30,22 @@ const SignInButton = ({ children }) => {
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
         sx={{
-          marginLeft: "auto",
           [theme.breakpoints.down("laptop")]: {
             height: "calc(100% - 6px)",
             "& > .MuiButton-endIcon": {
               display: "none",
             },
+          },
+          backgroundColor:
+            theme.palette.mode === "dark"
+              ? "var(--color-accent);"
+              : "var(--color-accent);",
+          borderRadius: 'var(--border-radius-btn);',
+          "&:hover": {
+            backgroundColor:
+              theme.palette.mode === "dark"
+                ? "#fb3938;"
+                : "#fb3938;",
           },
         }}
 
@@ -49,14 +59,11 @@ const SignInButton = ({ children }) => {
         onClose={handleClose}
       >
         <SignInSelectButton
-          startIcon={<FaceOutlinedIcon />}
+          startIcon={<PortraitSharpIcon />}
           href="/devs"
           sx={{
             "& .MuiButton-startIcon": {
-              backgroundColor:
-                theme.palette.mode === "dark"
-                  ? "rgb(240, 98, 146);"
-                  : "rgb(255, 64, 129);",
+              backgroundColor: " #8b0e3a", //icon person
               "& svg": {
                 color: "rgb(255, 255, 255)",
               },
@@ -66,13 +73,13 @@ const SignInButton = ({ children }) => {
           Sign in as a developer
         </SignInSelectButton>
         <SignInSelectButton
-          startIcon={<WorkOutlineOutlinedIcon />}
+          startIcon={<BusinessCenterSharpIcon />}
           href="/users/sign_in"
           sx={{
             "& .MuiButton-startIcon": {
-              backgroundColor: "rgb(243, 229, 245)",
+              backgroundColor: "var(--color-active-second)", //icon case
               "& svg": {
-                color: "rgb(171, 71, 188)",
+                color: "#6a0d3b",
               },
             },
           }}

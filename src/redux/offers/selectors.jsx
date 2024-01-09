@@ -1,5 +1,5 @@
-export const selectOffers = state => state.auth.offers;
+export const selectOffers = state => state.offers.offers;
 
-export const selectIsLoading = state => state.auth.isLoading;
+export const selectIsLoading = state => state.offers.isLoading;
 
-export const selectError = state => state.auth.error;
+export const selectError = state => state.offers.error;

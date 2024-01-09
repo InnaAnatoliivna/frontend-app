@@ -2,9 +2,9 @@ import Switch from "@mui/material/Switch";
 import styled from "@emotion/styled";
 
 const ThemeSwitchButton = styled(Switch)(({ theme }) => ({
+  marginLeft: "auto",
   width: 50,
   height: 26,
-  marginLeft: 16,
   padding: 0,
   "& .MuiSwitch-switchBase": {
     margin: 0,

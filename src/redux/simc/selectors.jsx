@@ -1,5 +1,5 @@
-export const selectCities = state => state.auth.cities;
+export const selectCities = state => state.cities.cities;
 
-export const selectIsLoading = state => state.auth.isLoading;
+export const selectIsLoading = state => state.cities.isLoading;
 
-export const selectError = state => state.auth.error;
+export const selectError = state => state.cities.error;

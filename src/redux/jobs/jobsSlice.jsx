@@ -3,7 +3,7 @@ import { handlePending, handleRejectedSecond } from '../api/apiHandlers';
 import { addJob, deleteJob, fetchAllJobs, fetchJobById, updateJobs } from './operations';
 
 const initialState = {
-    jobs: [],
+    jobs: null,
     jobDetails: null,
     isLoading: false,
     error: '',
@@ -18,7 +18,8 @@ const jobsSlice = createSlice({
             .addCase(fetchAllJobs.pending, handlePending)
             .addCase(fetchAllJobs.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.jobs = action.payload;
+                // state.jobs = state.jobs.push(action.payload.jobs);
+                state.jobs = action.payload.jobs
             })
             .addCase(fetchAllJobs.rejected, handleRejectedSecond)
             //

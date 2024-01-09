@@ -1,21 +1,12 @@
 import React, { useState } from 'react';
-import { Button, Popover, Typography } from "@mui/material";
-import styled from "@emotion/styled";
+import { Button, Typography, useTheme } from "@mui/material";
+import { PopoverStyled } from './LocationSelect.styled';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 
-const PopoverStyled = styled(Popover)(({ theme }) => ({
-    display: "flex",
-    flexDirection: "column",
-    ".MuiPopover-paper": {
-        margin: "32px 16px 0px 0px",
-        padding: "8px 24px",
-        backgroundColor: theme.palette.mode === "dark" ? "#121212" : "#ffffff",
-    },
-}));
-
 const LocationSelect = ({ children }) => {
+    const theme = useTheme();
     const [anchorEl, setAnchorEl] = useState(null);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -34,8 +25,29 @@ const LocationSelect = ({ children }) => {
                 aria-describedby={id}
                 variant="contained"
                 onClick={handleClick}
-                startIcon={<LocationOnIcon />}
+                startIcon={<LocationOnIcon style={{ fontSize: '21px' }} />}
                 endIcon={<KeyboardArrowDownIcon />}
+                sx={{
+                    backgroundColor:
+                        theme.palette.mode === "dark"
+                            ? 'var(--color-dark)'
+                            : 'var(--color-light)',
+                    color:
+                        theme.palette.mode === "dark"
+                            ? '#E0E0E0'
+                            : 'rgb(29, 30, 37)',
+                    border:
+                        theme.palette.mode === "dark"
+                            ? '1px solid #454545'
+                            : '1px solid rgb(228, 232, 240)',
+                    borderRadius: 'var(--border-radius-btn)',
+                    '&:hover': {
+                        backgroundColor:
+                            theme.palette.mode === "dark"
+                                ? 'var(--color-dark)'
+                                : 'var(--color-light)',
+                    },
+                }}
             >
                 Location
             </Button>

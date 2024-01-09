@@ -17,7 +17,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   letterSpacing: 0,
   backgroundColor:
     theme.palette.mode === "dark" ? "#393939" : "rgb(255, 255, 255)",
-  borderRadius: "12px",
+  borderRadius: "var(--border-radius-btn)",
   justifyContent: "start",
   width: "100%",
   fontSize: "0.875rem",

@@ -1,7 +1,7 @@
-export const selectJobs = state => state.auth.jobs;
+export const selectJobs = state => state.jobs.jobs;
 
-export const selectJobDetails = state => state.auth.jobDetails;
+export const selectJobDetails = state => state.jobs.jobDetails;
 
-export const selectIsLoading = state => state.auth.isLoading;
+export const selectIsLoading = state => state.jobs.isLoading;
 
-export const selectError = state => state.auth.error;
+export const selectError = state => state.jobs.error;

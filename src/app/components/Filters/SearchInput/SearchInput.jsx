@@ -1,6 +1,7 @@
 import React from 'react'
 import { Input, InputAdornment, useTheme } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
+import { fontSize } from '@mui/system';
 
 const SearchInput = () => {
     const theme = useTheme();
@@ -19,13 +20,13 @@ const SearchInput = () => {
                             : '1px solid rgb(228, 232, 240)',
                     backgroundColor:
                         theme.palette.mode === "dark"
-                            ? '#111111'
-                            : 'rgb(243, 246, 248)',
+                            ? 'var(--color-dark)'
+                            : 'var(--color-light)',
                     color:
                         theme.palette.mode === "dark"
                             ? '#E0E0E0'
                             : 'rgb(29, 30, 37)',
-                    borderRadius: '50px',
+                    borderRadius: 'var(--border-radius-btn)',
                     '&::after': {
                         content: 'none',
                     },
@@ -39,7 +40,7 @@ const SearchInput = () => {
                 variant="outlined"
                 startAdornment={
                     <InputAdornment position="start">
-                        <SearchIcon />
+                        <SearchIcon style={{ fontSize: '25px' }} />
                     </InputAdornment>
                 }
             >
