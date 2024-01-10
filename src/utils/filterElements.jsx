@@ -20,4 +20,12 @@ export const jobType = [
         representation: 3,
         icon: React.createElement(AllInboxIcon, {}),
     }
-]
+];
+
+export const proffesionTypesArray = [
+    { value: 1, name: "Adwokat" },
+    { value: 2, name: "Aplikant adwokacki" },
+    { value: 3, name: "Radca prawny" },
+    { value: 4, name: "Aplikant radcowski" },
+    { value: 5, name: "Inny" }
+];

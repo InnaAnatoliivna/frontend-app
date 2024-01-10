@@ -5,6 +5,8 @@ import FiltersPanel from '@/app/components/Filters/FiltersPanel/FiltersPanel';
 import { fetchAllJobs } from '@/redux/jobs/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectJobs } from '@/redux/jobs/selectors';
+import OffersList from '@/app/components/OffersList/OffersList';
+import OffersListItems from '@/app/components/OffersListItems/OffersListItems';
 
 
 const Index = () => {
@@ -29,6 +31,11 @@ const Index = () => {
         <SharedLayout>
             <Container>
                 <FiltersPanel />
+                <div>
+                    <OffersList>
+                        <OffersListItems />
+                    </OffersList>
+                </div>
             </Container>
         </SharedLayout>
     )

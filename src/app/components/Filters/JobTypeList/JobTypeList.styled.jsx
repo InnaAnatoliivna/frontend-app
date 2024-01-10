@@ -25,8 +25,8 @@ border-color: var(--color-accent);
 
 
 export const SvgWrap = styled.div`
-width: 38px;
-height: 45px;
+width: 46px;
+height: 44px;
 overflow: hidden;
 border-radius: 50%;
 background-color: var(--color-accent);
