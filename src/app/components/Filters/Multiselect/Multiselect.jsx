@@ -32,6 +32,7 @@ function getStyles(name, proffesionType, theme) {
 export default function MultipleSelectChip() {
     const theme = useTheme();
     const [proffesionType, setProffesionType] = React.useState([]);
+
     console.log(proffesionType)
     const handleChange = (event) => {
         const {
@@ -45,16 +46,20 @@ export default function MultipleSelectChip() {
 
     return (
         <div>
-            <FormControl sx={{ m: 1, minWidth: 300, overflow: 'hidden' }}>
-                {/* <InputLabel id="demo-multiple-chip-label">Chip</InputLabel> */}
+            <FormControl sx={{ m: 1, minWidth: 300 }}>
+                <InputLabel
+                    id="demo-multiple-chip-label"
+                    htmlFor="select-multiple-chip"
+                >
+                    Wybierz kwalifikacje wymagane
+                </InputLabel>
                 <Select
-                    placeholder='Wybierz kwalifikacje wymagane'
                     labelId="demo-multiple-chip-label"
                     id="demo-multiple-chip"
                     multiple
                     value={proffesionType}
                     onChange={handleChange}
-                    input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                    input={<OutlinedInput sx={{ borderRadius: '16px' }} id="select-multiple-chip" label="Wybierz kwalifikacje wymagane" />}
                     renderValue={(selected) => (
                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                             {selected.map((value) => (

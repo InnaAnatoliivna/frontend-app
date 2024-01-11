@@ -1,9 +1,10 @@
 import ToggleColorMode, { ColorModeContext } from "./ToggleColorMode";
 import "../globals.css";
-import { Roboto } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 import Navigation from "./Navigation";
 
-export const roboto = Roboto({
+
+export const fontDMSans = DM_Sans({
     weight: ["300", "400", "500", "700"],
     subsets: ["latin"],
 });

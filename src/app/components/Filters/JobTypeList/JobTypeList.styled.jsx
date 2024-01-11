@@ -12,6 +12,11 @@ export const ButtonStyled = styled.button`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+        transform: scale(1.1); 
+    }
 `;
 
 export const Svg = styled.div`

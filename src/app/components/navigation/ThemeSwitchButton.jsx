@@ -20,7 +20,7 @@ const ThemeSwitchButton = styled(Switch)(({ theme }) => ({
       },
       "& + .MuiSwitch-track": {
         opacity: 1,
-        backgroundColor: theme.palette.mode === "dark" ? "#202020" : "#E4E8F0",
+        backgroundColor: theme.palette.mode === "dark" ? "var(--color-dark)" : "#E4E8F0",
       },
     },
   },

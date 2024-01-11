@@ -28,10 +28,10 @@ const LocationSelect = ({ children }) => {
                 startIcon={<LocationOnIcon style={{ fontSize: '21px' }} />}
                 endIcon={<KeyboardArrowDownIcon />}
                 sx={{
-                    backgroundColor:
-                        theme.palette.mode === "dark"
-                            ? 'var(--color-dark)'
-                            : 'var(--color-light)',
+                    backgroundColor: 'transparent',
+                    // theme.palette.mode === "dark"
+                    //     ? 'var(--color-dark)'
+                    //     : 'var(--color-light)',
                     color:
                         theme.palette.mode === "dark"
                             ? '#E0E0E0'
