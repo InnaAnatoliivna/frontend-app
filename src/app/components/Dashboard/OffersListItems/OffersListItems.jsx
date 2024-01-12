@@ -4,10 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectJobs } from '@/redux/jobs/selectors';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { format, parseISO } from 'date-fns';
+import ArticleIcon from '@mui/icons-material/Article';
+import { Card, LastWrap, MainWrapper } from './OffersListItems.styled';
+import { useTheme } from '@emotion/react';
 
 
 const OffersListItems = () => {
-
+    const theme = useTheme();
     const dispatch = useDispatch();
     const jobsListSelector = useSelector(selectJobs);
     console.log(jobsListSelector);
@@ -33,22 +36,33 @@ const OffersListItems = () => {
                 jobsListSelector &&
                 jobsListSelector.map(job => {
                     const createDateObject = parseISO(job.createdDate);
-                    const dateObject = parseISO(job.date);
-
                     const createdDate = format(createDateObject, 'dd.MM.yyyy');
-                    const date = format(dateObject, 'dd.MM.yyyy');
+
+                    const dateObject = job.date ? parseISO(job.date) : null;
+                    const date = dateObject ? format(dateObject, 'dd.MM.yyyy') : null;
 
                     return (
-                        <li key={job.id}>
+                        <Card key={job.id} theme={theme}>
                             <a>
-                                {/* avatar ??????? */}
-                                <h3>{job.title}</h3>
-                                <p><LocationOnIcon /><span>{job.address.city}</span></p>
-                                <span>Added: {createdDate}</span>
-                                <span>{date}</span>
-
+                                <MainWrapper>
+                                    <div>
+                                        {/* avatar ??????? */}
+                                        <div><ArticleIcon style={{ fontSize: '60px' }} /></div>
+                                    </div>
+                                    {/* <ContentWrap> */}
+                                    <div>
+                                        <h3>{job.title}</h3>
+                                        <p><LocationOnIcon /><span>{job.address?.city || ''}</span></p>
+                                        {date && <span>{date}</span>}
+                                    </div>
+                                    <LastWrap>
+                                        <span>Added: {createdDate}</span>
+                                        {job.vatInvoice && <p>Faktura VAT</p>}
+                                    </LastWrap>
+                                    {/* </ContentWrap> */}
+                                </MainWrapper>
                             </a>
-                        </li>
+                        </Card>
                     )
                 })
             }
