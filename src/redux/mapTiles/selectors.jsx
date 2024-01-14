@@ -1,4 +1,4 @@
-export const selectIsMapTiles = state => state.maps.mapTiles;
+export const selectMapTiles = state => state.maps.mapTiles;
 
 export const selectBaseMap = state => state.maps.base64Map;
 

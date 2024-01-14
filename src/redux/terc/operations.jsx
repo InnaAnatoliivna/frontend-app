@@ -4,7 +4,7 @@ import api from '../api/serviceApi';
 /**
  * GET @ /api/Terc/GetProvinces
  */
-export const fetchMapTiles = createAsyncThunk('api/Terc/GetProvinces', async (_, thunkAPI) => {
+export const fetchProvinces = createAsyncThunk('api/Terc/GetProvinces', async (_, thunkAPI) => {
     try {
         const { data } = await api.get('/api/Terc/GetProvinces');
         console.log('got provinces :', data);

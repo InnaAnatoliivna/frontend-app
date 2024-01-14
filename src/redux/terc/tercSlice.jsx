@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchMapTiles } from './operations';
+import { fetchProvinces } from './operations';
 import { handlePending, handleRejectedSecond } from '../api/apiHandlers';
 
 const initialState = {
@@ -14,12 +14,12 @@ const provincesSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchMapTiles.pending, handlePending)
-            .addCase(fetchMapTiles.fulfilled, (state, action) => {
+            .addCase(fetchProvinces.pending, handlePending)
+            .addCase(fetchProvinces.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.provinces = action.payload;
             })
-            .addCase(fetchMapTiles.rejected, handleRejectedSecond);
+            .addCase(fetchProvinces.rejected, handleRejectedSecond);
     },
 });
 

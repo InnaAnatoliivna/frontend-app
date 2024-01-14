@@ -17,6 +17,8 @@
 
   --border-radius-btn: 16px;
   --border-radius-cards: 6px;
+  --border-dark: #454545;
+  --border-light: rgb(228, 232, 240);
 
   --card-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.3);
   /*use .my-element {

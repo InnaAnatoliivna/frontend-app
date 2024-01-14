@@ -1,50 +1,34 @@
 import React from 'react'
-import { Input, InputAdornment, useTheme } from '@mui/material'
+import { InputAdornment, useTheme } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
-import { fontSize } from '@mui/system';
+import { InputStyled } from './SearchInput.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectFilteredOffers } from '@/redux/filters/selectors';
+import { updateTitleFilter } from '@/redux/filters/filtersSlice';
 
 const SearchInput = () => {
     const theme = useTheme();
+    const dispatch = useDispatch();
+    const inputValue = useSelector(selectFilteredOffers);
+
+    const handleSearchInput = e => {
+        dispatch(updateTitleFilter(e.target.value.trim()));
+    };
+    console.log('>>>>>>>>>>>', inputValue)
 
     return (
         <div>
-            <Input
+            <InputStyled
                 placeholder='Search'
-                sx={{
-                    height: '100%',
-                    paddingLeft: '20px',
-                    paddingRight: '10px',
-                    border:
-                        theme.palette.mode === "dark"
-                            ? '1px solid #454545'
-                            : '1px solid rgb(228, 232, 240)',
-                    backgroundColor:
-                        theme.palette.mode === "dark"
-                            ? 'var(--color-dark)'
-                            : 'var(--color-light)',
-                    color:
-                        theme.palette.mode === "dark"
-                            ? '#E0E0E0'
-                            : 'rgb(29, 30, 37)',
-                    borderRadius: 'var(--border-radius-btn)',
-                    '&::after': {
-                        content: 'none',
-                    },
-                    '&::before': {
-                        content: 'none',
-                    },
-                    fontWeight: '600',
-                    fontSize: '13px',
-                    lineHeight: '1.6'
-                }}
                 variant="outlined"
                 startAdornment={
                     <InputAdornment position="start">
                         <SearchIcon style={{ fontSize: '25px' }} />
                     </InputAdornment>
                 }
+                onInput={handleSearchInput}
             >
-            </Input>
+            </InputStyled>
         </div>
     )
 }

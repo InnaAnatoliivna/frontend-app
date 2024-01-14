@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { List } from './OffersList.styled';
+import { List, Title } from './OffersList.styled';
 import { useTheme } from '@emotion/react';
 
 
@@ -9,7 +9,8 @@ const OffersList = ({ children }) => {
 
     return (
 
-        <List theme={theme}>Offers List
+        <List theme={theme}>
+            <Title>Wszystkie oferty</Title>
             {children}
         </List>
     )

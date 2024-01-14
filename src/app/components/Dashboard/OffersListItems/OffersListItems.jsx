@@ -56,7 +56,7 @@ const OffersListItems = () => {
                                         {date && <span>{date}</span>}
                                     </div>
                                     <LastWrap>
-                                        <span>Added: {createdDate}</span>
+                                        <span>Dodano: {createdDate}</span>
                                         {job.vatInvoice && <p>Faktura VAT</p>}
                                     </LastWrap>
                                     {/* </ContentWrap> */}
