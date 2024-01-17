@@ -15,9 +15,11 @@
   --color-light-second: #ffe2d8;
   --color-price: #6aa848;
 
+  --bc-dark: #2c2c2c;
+
   --border-radius-btn: 16px;
   --border-radius-cards: 6px;
-  --border-dark: #454545;
+  --border-dark: #3c3c3c;
   --border-light: rgb(228, 232, 240);
 
   --card-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.3);

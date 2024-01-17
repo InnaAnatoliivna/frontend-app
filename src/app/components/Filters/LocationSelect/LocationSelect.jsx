@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import { Button, Typography, useTheme } from "@mui/material";
-import { ButtonStyled, PopoverStyled } from './LocationSelect.styled';
+import { Button, useTheme } from "@mui/material";
+import { ButtonFind, ButtonStyled, PopoverStyled } from './LocationSelect.styled';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useSelector } from 'react-redux';
+import { selectProvinceFilter } from '@/redux/filters/selectors';
+import SearchIcon from '@mui/icons-material/Search';
 
 
 const LocationSelect = ({ children }) => {
     const theme = useTheme();
+    const selectedLocation = useSelector(selectProvinceFilter);
     const [anchorEl, setAnchorEl] = useState(null);
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -18,6 +23,10 @@ const LocationSelect = ({ children }) => {
 
     const open = Boolean(anchorEl);
     const id = open ? "currency-popover" : undefined;
+
+    const handleClickButton = () => {
+        handleClose();
+    }
 
     return (
         <>
@@ -41,6 +50,14 @@ const LocationSelect = ({ children }) => {
                 }}
             >
                 {children}
+                <ButtonFind
+                    type='button'
+                    disabled={selectedLocation === ''}
+                    onClick={handleClickButton}
+                >
+                    <SearchIcon />
+                    Szukaj
+                </ButtonFind>
             </PopoverStyled>
         </>
     )

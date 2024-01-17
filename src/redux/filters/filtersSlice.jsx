@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     titleFilter: '',
-    locationFilter: '',
+    provinceFilter: null,
+    cityFilter: null,
     jobTypeFilter: '',
     professionFilter: '',
     filteredOffers: null,
@@ -15,7 +16,10 @@ const filterSlice = createSlice({
         updateTitleFilter(state, action) {
             state.titleFilter = action.payload;
         },
-        updateLocationFilter(state, action) {
+        updateProvinceFilter(state, action) {
+            state.locationFilter = action.payload;
+        },
+        updateCityFilter(state, action) {
             state.locationFilter = action.payload;
         },
         updateJobTypeFilter(state, action) {
@@ -27,14 +31,20 @@ const filterSlice = createSlice({
         updateFilteredOffers(state, action) {
             state.filteredOffers = action.payload;
         },
+
+        clearAllFilters(state) {
+            Object.assign(state, initialState);
+        },
     },
 });
 
 export const {
     updateTitleFilter,
-    updateLocationFilter,
+    updateProvinceFilter,
+    updateCityFilter,
     updateJobTypeFilter,
     updateProfessionFilter,
-    updateFilteredOffers
+    updateFilteredOffers,
+    clearAllFilters
 } = filterSlice.actions;
 export const filtersReducer = filterSlice.reducer;
