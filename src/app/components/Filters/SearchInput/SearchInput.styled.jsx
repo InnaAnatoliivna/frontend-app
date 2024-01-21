@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Input } from "@mui/material";
 
 export const InputStyled = styled(Input)(({ theme }) => ({
-    height: '100%',
+    height: '52px',
     paddingLeft: '20px',
     paddingRight: '10px',
     border:

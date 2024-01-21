@@ -52,6 +52,10 @@ const Navigation = () => {
                 theme.palette.mode === "dark"
                   ? "#fb3938;"
                   : "#fb3938;",
+              color:
+                theme.palette.mode === "dark"
+                  ? "var(--color-light);"
+                  : "var(--color-light)",
             },
 
           }}

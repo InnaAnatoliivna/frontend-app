@@ -4,18 +4,18 @@ import LocationSelect from '../LocationSelect/LocationSelect';
 import JobTypeList from '../JobTypeList/JobTypeList';
 import MultipleSelectChip from '../Multiselect/Multiselect';
 import { Panel } from './FilterPanel.styled';
-import LocationContent from '../LocationContent/LocationContent';
+import ClearButton from '../ClearFiltersButton/ClearButton';
 
 
 const FiltersPanel = () => {
+
     return (
         <Panel>
             <SearchInput />
-            <LocationSelect>
-                <LocationContent />
-            </LocationSelect>
+            <LocationSelect />
             <JobTypeList />
             <MultipleSelectChip />
+            <ClearButton />
         </Panel>
     )
 }

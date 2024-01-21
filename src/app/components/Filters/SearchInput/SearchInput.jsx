@@ -3,18 +3,18 @@ import { InputAdornment, useTheme } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import { InputStyled } from './SearchInput.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectFilteredOffers } from '@/redux/filters/selectors';
+import { selectTitleFilter } from '@/redux/filters/selectors';
 import { updateTitleFilter } from '@/redux/filters/filtersSlice';
 
 const SearchInput = () => {
     const theme = useTheme();
     const dispatch = useDispatch();
-    const inputValue = useSelector(selectFilteredOffers);
+    // const inputValue = useSelector(selectTitleFilter);
 
     const handleSearchInput = e => {
         dispatch(updateTitleFilter(e.target.value.trim()));
     };
-    console.log('>>>>>>>>>>>', inputValue)
+    // console.log('>>>>>>>>>>>', inputValue)
 
     return (
         <div>

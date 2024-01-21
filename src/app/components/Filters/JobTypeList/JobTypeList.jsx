@@ -1,26 +1,22 @@
 import React from 'react';
-import { jobType } from '@/utils/filterElements';
-import { ButtonStyled, Svg, Wrapper, SvgWrap } from './JobTypeList.styled';
+import { getIconComponentByName, jobType } from '@/utils/filterElements';
+import { ButtonStyled, Svg, Wrapper, SvgWrap, TypographyStyled } from './JobTypeList.styled';
 import { useTheme } from "@mui/material";
-import styled from "@emotion/styled";
 import { getBackgroundColor } from '@/utils/filterHelpers';
-
-
-const TypographyStyled = styled("p")(({ theme }) => ({
-    color: theme.palette.mode === "dark" ? "rgba(255,255,255,.80)" : "var(--color-dark)",
-    fontSize: "0.875rem",
-    // [theme.breakpoints.down("laptop")]: {
-    //     display: "none",
-    // },
-}));
+import { updateJobTypeFilter } from '@/redux/filters/filtersSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectJobTypeFilter } from '@/redux/filters/selectors';
 
 
 const JobTypeList = () => {
     const theme = useTheme();
+    const dispatch = useDispatch();
+    // const jobTypeFilter = useSelector(selectJobTypeFilter);
+    // console.log(jobTypeFilter)
 
-
-    const handelCklick = (jobType) => {
-        console.log(jobType)
+    const handelClick = type => {
+        // console.log(type)
+        dispatch(updateJobTypeFilter(type));
     }
 
     return (
@@ -32,10 +28,10 @@ const JobTypeList = () => {
                     <ButtonStyled
                         type='button'
                         key={item.representation}
-                        onClick={handelCklick(item)}
+                        onClick={() => handelClick(item)}
                     >
                         <SvgWrap style={{ backgroundColor }}>
-                            <Svg>{item.icon}</Svg>
+                            <Svg>{getIconComponentByName(item.iconName)}</Svg>
                         </SvgWrap>
                         <TypographyStyled>{item.name}</TypographyStyled>
                     </ButtonStyled>

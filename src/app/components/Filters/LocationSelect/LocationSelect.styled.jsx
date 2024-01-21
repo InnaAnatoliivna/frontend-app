@@ -12,6 +12,7 @@ export const PopoverStyled = styled(Popover)(({ theme }) => ({
 }));
 
 export const ButtonStyled = styled(Button)(({ theme }) => ({
+    height: '52px',
     backgroundColor: 'transparent',
     color: theme.palette.mode === "dark" ? 'var(--color-light)' : 'var(--color-dark)',
     border: theme.palette.mode === "dark" ? '1px solid var(--border-dark)' : '1px solid var(--border-light)',
@@ -21,21 +22,3 @@ export const ButtonStyled = styled(Button)(({ theme }) => ({
     },
 }));
 
-export const ButtonFind = styled(Button)(({ theme, disabled }) => ({
-    backgroundColor: 'transparent',
-    color: theme.palette.mode === "dark" ? 'var(--color-light)' : 'var(--color-dark)',
-    border: theme.palette.mode === "dark" ? '1px solid var(--border-dark)' : '1px solid var(--border-light)',
-    borderRadius: 'var(--border-radius-btn)',
-    '&:hover': {
-        backgroundColor: theme.palette.mode === "dark" ? 'var(--color-dark)' : 'var(--color-light)',
-    },
-
-    ...(disabled && {
-        backgroundColor: theme.palette.mode === "dark" ? 'var(--bc-dark)' : 'var(--bc-dark)',
-        color: 'white',
-        cursor: 'not-allowed',
-        '&:hover': {
-            backgroundColor: 'grey',
-        },
-    }),
-}));

@@ -9,32 +9,15 @@ import { Card, LastWrap, MainWrapper } from './OffersListItems.styled';
 import { useTheme } from '@emotion/react';
 
 
-const OffersListItems = () => {
+const OffersListItems = ({ data }) => {
     const theme = useTheme();
-    const dispatch = useDispatch();
-    const jobsListSelector = useSelector(selectJobs);
-    console.log(jobsListSelector);
-    // const [jobsList, setJobsList] = useState(null);
 
-    useEffect(() => {
-
-        const getData = async () => {
-            try {
-                const data = await dispatch(fetchAllJobs())
-                console.log(data)
-
-            } catch (error) {
-                console.error('Error fetching Jobs :', error)
-            }
-        }
-        getData()
-    }, [])
 
     return (
         <>
             {
-                jobsListSelector &&
-                jobsListSelector.map(job => {
+                data &&
+                data.map(job => {
                     const createDateObject = parseISO(job.createdDate);
                     const createdDate = format(createDateObject, 'dd.MM.yyyy');
 

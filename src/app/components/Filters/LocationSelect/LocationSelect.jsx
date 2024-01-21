@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { Button, useTheme } from "@mui/material";
-import { ButtonFind, ButtonStyled, PopoverStyled } from './LocationSelect.styled';
+import { useTheme } from "@mui/material";
+import { ButtonStyled, PopoverStyled } from './LocationSelect.styled';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useSelector } from 'react-redux';
 import { selectProvinceFilter } from '@/redux/filters/selectors';
-import SearchIcon from '@mui/icons-material/Search';
+import LocationContent from '../LocationContent/LocationContent';
 
 
-const LocationSelect = ({ children }) => {
+const LocationSelect = () => {
     const theme = useTheme();
     const selectedLocation = useSelector(selectProvinceFilter);
     const [anchorEl, setAnchorEl] = useState(null);
+    console.log('selectedLocation :', selectedLocation)
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -49,15 +50,7 @@ const LocationSelect = ({ children }) => {
                     horizontal: 'left',
                 }}
             >
-                {children}
-                <ButtonFind
-                    type='button'
-                    disabled={selectedLocation === ''}
-                    onClick={handleClickButton}
-                >
-                    <SearchIcon />
-                    Szukaj
-                </ButtonFind>
+                <LocationContent handleClickButton={handleClickButton} />
             </PopoverStyled>
         </>
     )

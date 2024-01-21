@@ -5,5 +5,7 @@ export const Panel = styled.div`
     display: flex;
     gap: 12px;
     padding: 20px 16px 12px 16px ;
+    justify-content: center;
+    align-items: center;
     /* margin-top: 20px; */
 `;

@@ -8,6 +8,9 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 import { proffesionTypesArray } from '@/utils/filterElements';
+import { useDispatch, useSelector } from 'react-redux';
+// import { selectProfessionFilter } from '@/redux/filters/selectors';
+import { updateProfessionFilter } from '@/redux/filters/filtersSlice';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -31,9 +34,12 @@ function getStyles(name, proffesionType, theme) {
 
 export default function MultipleSelectChip() {
     const theme = useTheme();
+    const dispatch = useDispatch();
     const [proffesionType, setProffesionType] = React.useState([]);
+    // const jobTypeFilter = useSelector(selectProfessionFilter);
 
-    console.log(proffesionType)
+    // console.log(jobTypeFilter)
+
     const handleChange = (event) => {
         const {
             target: { value },
@@ -42,7 +48,10 @@ export default function MultipleSelectChip() {
             // On autofill we get a stringified value.
             typeof value === 'string' ? value.split(',') : value,
         );
+        dispatch(updateProfessionFilter(proffesionType))
     };
+
+    // console.log(proffesionType)
 
     return (
         <div>

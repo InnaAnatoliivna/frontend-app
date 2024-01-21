@@ -4,9 +4,9 @@ const initialState = {
     titleFilter: '',
     provinceFilter: null,
     cityFilter: null,
-    jobTypeFilter: '',
-    professionFilter: '',
-    filteredOffers: null,
+    jobTypeFilter: null,
+    professionFilter: null,
+    filteredOffers: [],
 };
 
 const filterSlice = createSlice({
@@ -17,10 +17,10 @@ const filterSlice = createSlice({
             state.titleFilter = action.payload;
         },
         updateProvinceFilter(state, action) {
-            state.locationFilter = action.payload;
+            state.provinceFilter = action.payload;
         },
         updateCityFilter(state, action) {
-            state.locationFilter = action.payload;
+            state.cityFilter = action.payload;
         },
         updateJobTypeFilter(state, action) {
             state.jobTypeFilter = action.payload;
@@ -31,6 +31,7 @@ const filterSlice = createSlice({
         updateFilteredOffers(state, action) {
             state.filteredOffers = action.payload;
         },
+
 
         clearAllFilters(state) {
             Object.assign(state, initialState);
