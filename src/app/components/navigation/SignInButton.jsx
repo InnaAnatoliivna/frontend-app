@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import SignInSelect from "./SignInElements/SignInSelect";
-import SignInSelectButton from "./SignInElements/SignInSelectButton";
-import PortraitSharpIcon from '@mui/icons-material/PortraitSharp';
-import BusinessCenterSharpIcon from '@mui/icons-material/BusinessCenterSharp';
+// import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+// import SignInSelect from "./SignInElements/SignInSelect";
+// import SignInSelectButton from "./SignInElements/SignInSelectButton";
+// import PortraitSharpIcon from '@mui/icons-material/PortraitSharp';
+// import BusinessCenterSharpIcon from '@mui/icons-material/BusinessCenterSharp';
 import { useTheme } from "@mui/material";
 
 const SignInButton = ({ children }) => {
@@ -28,7 +28,7 @@ const SignInButton = ({ children }) => {
         variant="contained"
         color="secondary"
         onClick={handleClick}
-        endIcon={<KeyboardArrowDownIcon />}
+        // endIcon={<KeyboardArrowDownIcon />}
         sx={{
           [theme.breakpoints.down("laptop")]: {
             height: "calc(100% - 6px)",
@@ -36,6 +36,10 @@ const SignInButton = ({ children }) => {
               display: "none",
             },
           },
+          color:
+            theme.palette.mode === "dark"
+              ? "var(--color-light)"
+              : "var(--color-dark)",
           backgroundColor:
             theme.palette.mode === "dark"
               ? "var(--color-accent);"
@@ -52,7 +56,7 @@ const SignInButton = ({ children }) => {
       >
         {children}
       </Button>
-      <SignInSelect
+      {/* <SignInSelect
         id={id}
         open={open}
         anchorEl={anchorEl}
@@ -86,7 +90,7 @@ const SignInButton = ({ children }) => {
         >
           Sign in to Employer Panel
         </SignInSelectButton>
-      </SignInSelect>
+      </SignInSelect> */}
     </>
   );
 };

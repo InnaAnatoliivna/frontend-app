@@ -6,7 +6,7 @@ const initialState = {
     cityFilter: null,
     jobTypeFilter: null,
     professionFilter: null,
-    filteredOffers: [],
+    filteredOffers: []
 };
 
 const filterSlice = createSlice({
@@ -28,11 +28,23 @@ const filterSlice = createSlice({
         updateProfessionFilter(state, action) {
             state.professionFilter = action.payload;
         },
+        // updateFilteredOffers(state, action) {
+        //     state.filteredOffers = action.payload;
+        // },
         updateFilteredOffers(state, action) {
-            state.filteredOffers = action.payload;
+            if (action.payload) {
+                action.payload.forEach(newOffer => {
+                    const exists = state.filteredOffers.find(existingOffer => existingOffer.id === newOffer.id);
+                    if (!exists) {
+                        state.filteredOffers.push(newOffer);
+                    }
+                });
+            }
         },
 
-
+        clearFilteredOffers(state) {
+            state.filteredOffers = [];
+        },
         clearAllFilters(state) {
             Object.assign(state, initialState);
         },
@@ -46,6 +58,7 @@ export const {
     updateJobTypeFilter,
     updateProfessionFilter,
     updateFilteredOffers,
+    clearFilteredOffers,
     clearAllFilters
 } = filterSlice.actions;
 export const filtersReducer = filterSlice.reducer;

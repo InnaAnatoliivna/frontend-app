@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectJobs } from '@/redux/jobs/selectors';
 import { fetchAllJobs } from '@/redux/jobs/operations';
 import { selectCityFilter, selectFilteredOffers, selectJobTypeFilter, selectProfessionFilter, selectProvinceFilter, selectTitleFilter } from '@/redux/filters/selectors';
-import { updateFilteredOffers } from '@/redux/filters/filtersSlice';
+import { clearAllFilters, clearFilteredOffers, updateFilteredOffers } from '@/redux/filters/filtersSlice';
 const MapSearch = dynamic(() => import('@/app/components/Dashboard/MapSearch/MapSearch'), { ssr: false });
 // import MapSearch from '../MapSearch/MapSearch'
 
@@ -23,13 +23,10 @@ const DashboardWrap = () => {
     const cityFilter = useSelector(selectCityFilter);
     // console.log('CITY :', cityFilter); ///////
     const jobTypeFilter = useSelector(selectJobTypeFilter);
-    // console.log('TYPE JOB :', jobTypeFilter); ///////
+    console.log('TYPE JOB :', jobTypeFilter); ///////
     const professionFilter = useSelector(selectProfessionFilter);
     // console.log('PROFESSION :', professionFilter); ///////
     // console.log(jobsList);
-    console.log('filteredJobs :', filteredJobs);
-
-    // const [filteredJobsList, setFilteredJobsList] = useState(null);
 
 
     const filterFunction = useMemo(() => {
@@ -62,16 +59,25 @@ const DashboardWrap = () => {
 
         getData();
         // dispatch(updateFilteredOffers(jobsList));
-    }, [dispatch]);
+    }, []);
 
 
     useEffect(() => {
         const filteredData = jobsList?.filter(filterFunction) || [];
+        console.log(filterFunction)
         if (filteredData) {
             dispatch(updateFilteredOffers(filteredData));
+            console.log('filteredJobs :', filteredData);
+            //clean filters
+            // dispatch(clearAllFilters())
         };
     }, [dispatch, jobsList, filterFunction, titleFilter, provinceFilter, cityFilter, jobTypeFilter, professionFilter]);
 
+    useEffect(() => {
+        if (!titleFilter && !provinceFilter && !cityFilter && !jobTypeFilter && !professionFilter) {
+            dispatch(clearFilteredOffers());
+        }
+    }, [dispatch, titleFilter, provinceFilter, cityFilter, jobTypeFilter, professionFilter]);
 
     return (
         <Wrapper>

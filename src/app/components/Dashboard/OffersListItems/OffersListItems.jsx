@@ -30,7 +30,7 @@ const OffersListItems = ({ data }) => {
                                 <MainWrapper>
                                     <div>
                                         {/* avatar ??????? */}
-                                        <div><ArticleIcon style={{ fontSize: '60px' }} /></div>
+                                        <div><ArticleIcon style={{ fontSize: '60px', color: 'var(--color-accent)' }} /></div>
                                     </div>
                                     {/* <ContentWrap> */}
                                     <div>

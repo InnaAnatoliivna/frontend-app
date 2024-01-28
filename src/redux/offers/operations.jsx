@@ -22,7 +22,7 @@ export const addOffers = createAsyncThunk('api/Offers/Create', async (offerData,
 export const updateOffers = createAsyncThunk('api/Offers/Update', async (offerData, thunkAPI) => {
     try {
         const { data } = await api.put('/api/Offers/Update', offerData);
-        console.log('update offer:', data);
+        // console.log('updated offer:', data);
         return data;
     } catch (e) {
         return thunkAPI.rejectWithValue(e.message);

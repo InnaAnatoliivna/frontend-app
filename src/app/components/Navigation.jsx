@@ -62,7 +62,17 @@ const Navigation = () => {
         >
           Post an Offer
         </Button>
-        <SignInButton>Sign in</SignInButton>
+        <SignInButton>
+          <Link
+            href='/login'
+            style={{
+              width: '100%',
+              color: "var(--color-light)",
+            }}
+          >
+            Sign in
+          </Link>
+        </SignInButton>
         {/* <CurrencySwitch /> */}
       </Nav>
       <Box

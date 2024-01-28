@@ -7,7 +7,7 @@ import api from '../api/serviceApi';
 export const fetchProvinces = createAsyncThunk('api/Terc/GetProvinces', async (_, thunkAPI) => {
     try {
         const { data } = await api.get('/api/Terc/GetProvinces');
-        console.log('got provinces :', data);
+        // console.log('got provinces :', data);
         return data;
     } catch (e) {
         return thunkAPI.rejectWithValue(e.message);

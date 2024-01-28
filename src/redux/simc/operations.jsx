@@ -7,7 +7,7 @@ import api from '../api/serviceApi';
 export const fetchCities = createAsyncThunk('api/Simc/GetCities', async (_, thunkAPI) => {
     try {
         const { data } = await api.get('/api/Simc/GetCities');
-        console.log('got cities :', data);
+        // console.log('got cities :', data);
         return data;
     } catch (e) {
         return thunkAPI.rejectWithValue(e.message);
