@@ -8,8 +8,8 @@ import { selectJobs } from '@/redux/jobs/selectors';
 import { fetchAllJobs } from '@/redux/jobs/operations';
 import { selectCityFilter, selectFilteredOffers, selectJobTypeFilter, selectProfessionFilter, selectProvinceFilter, selectTitleFilter } from '@/redux/filters/selectors';
 import { clearAllFilters, clearFilteredOffers, updateFilteredOffers } from '@/redux/filters/filtersSlice';
-const MapSearch = dynamic(() => import('@/app/components/Dashboard/MapSearch/MapSearch'), { ssr: false });
-// import MapSearch from '../MapSearch/MapSearch'
+// const MapSearch = dynamic(() => import('@/app/components/Dashboard/MapSearch/MapSearch'), { ssr: false });
+import MapSearch from '../MapSearch/MapSearch'
 
 const DashboardWrap = () => {
 
