@@ -23,7 +23,7 @@ const DashboardWrap = () => {
     const cityFilter = useSelector(selectCityFilter);
     // console.log('CITY :', cityFilter); ///////
     const jobTypeFilter = useSelector(selectJobTypeFilter);
-    console.log('TYPE JOB :', jobTypeFilter); ///////
+    // console.log('TYPE JOB :', jobTypeFilter); ///////
     const professionFilter = useSelector(selectProfessionFilter);
     // console.log('PROFESSION :', professionFilter); ///////
     // console.log(jobsList);
