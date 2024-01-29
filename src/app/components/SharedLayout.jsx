@@ -1,5 +1,5 @@
 import ToggleColorMode, { ColorModeContext } from "./ToggleColorMode";
-import "../globals.css";
+import "../../globals.css";
 import { DM_Sans } from "next/font/google";
 import Navigation from "./Navigation";
 

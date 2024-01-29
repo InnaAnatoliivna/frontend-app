@@ -2,11 +2,11 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-    output: 'export',
-    trailingSlash: true,
-    skipTrailingSlashRedirect: true,
-    distDir: 'dist',
-    basePath: '/lawyer-app-web',
+    // output: 'export',
+    // trailingSlash: true,
+    // skipTrailingSlashRedirect: true,
+    // distDir: 'dist',
+    // basePath: '/lawyer-app-web',
 
     // images: {
     //     loader: 'custom',

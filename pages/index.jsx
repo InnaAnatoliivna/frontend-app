@@ -1,13 +1,8 @@
-import React, { useEffect } from 'react';
-import SharedLayout from '../src/app/components/SharedLayout';
 import Container from '@/app/components/Container/Container';
-import FiltersPanel from '@/app/components/Filters/FiltersPanel/FiltersPanel';
-// import { fetchAllJobs } from '@/redux/jobs/operations';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { selectJobs } from '@/redux/jobs/selectors';
-// import OffersList from '@/app/components/Dashboard/OffersList/OffersList';
-// import OffersListItems from '@/app/components/Dashboard/OffersListItems/OffersListItems';
 import DashboardWrap from '@/app/components/Dashboard/DashboardWrap/DashboardWrap';
+import FiltersPanel from '@/app/components/Filters/FiltersPanel/FiltersPanel';
+import SharedLayout from '@/app/components/SharedLayout';
+import React, { useEffect } from 'react';
 
 
 const Index = () => {
