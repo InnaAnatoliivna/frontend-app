@@ -10,6 +10,8 @@ export default function Map() {
     const [zoom] = useState(14);
     maptilersdk.config.apiKey = process.env.NEXT_PUBLIC_MAPTILER_API_KEY;
 
+    console.log('MAP API KEY :', process.env.NEXT_PUBLIC_MAPTILER_API_KEY)
+
     useEffect(() => {
         if (map.current) return; // stops map from intializing more than once
 
