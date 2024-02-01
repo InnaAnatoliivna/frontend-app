@@ -1,77 +1,56 @@
-import React, { useEffect, useMemo } from 'react';
-import dynamic from 'next/dynamic';
+import React, { useEffect, useMemo, useState } from 'react';
 import OffersList from '../OffersList/OffersList';
 import OffersListItems from '../OffersListItems/OffersListItems';
+import MapSearch from '../MapSearch/MapSearch';
 import { Wrapper } from './DashboardWrap.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectJobs } from '@/redux/jobs/selectors';
 import { fetchAllJobs } from '@/redux/jobs/operations';
-import { selectCityFilter, selectFilteredOffers, selectJobTypeFilter, selectProfessionFilter, selectProvinceFilter, selectTitleFilter } from '@/redux/filters/selectors';
-import { clearAllFilters, clearFilteredOffers, updateFilteredOffers } from '@/redux/filters/filtersSlice';
-// const MapSearch = dynamic(() => import('@/app/components/Dashboard/MapSearch/MapSearch'), { ssr: false });
-import MapSearch from '../MapSearch/MapSearch'
+import { selectCityFilter, selectJobTypeFilter, selectProfessionFilter, selectProvinceFilter, selectTitleFilter } from '@/redux/filters/selectors';
+import { clearFilteredOffers, updateFilteredOffers } from '@/redux/filters/filtersSlice';
 
 const DashboardWrap = () => {
-
     const dispatch = useDispatch();
     const jobsList = useSelector(selectJobs);
-    // filters  - - > >
-    const filteredJobs = useSelector(selectFilteredOffers);
+    const [filteredJobList, setFilteredJobList] = useState(null);
+    console.log('STATE FILTERED :', filteredJobList) //
+
     const titleFilter = useSelector(selectTitleFilter);
     const provinceFilter = useSelector(selectProvinceFilter);
-    // console.log('PROVINCE :', provinceFilter); ///////
     const cityFilter = useSelector(selectCityFilter);
-    // console.log('CITY :', cityFilter); ///////
     const jobTypeFilter = useSelector(selectJobTypeFilter);
-    // console.log('TYPE JOB :', jobTypeFilter); ///////
     const professionFilter = useSelector(selectProfessionFilter);
-    // console.log('PROFESSION :', professionFilter); ///////
-    // console.log(jobsList);
-
 
     const filterFunction = useMemo(() => {
-        switch (true) {
-            case Boolean(titleFilter):
-                return (job) => job.title === titleFilter;
-            case Boolean(provinceFilter):
-                return (job) => job.address.province === provinceFilter.name;
-            case Boolean(cityFilter):
-                return (job) => job.address.city === cityFilter.name;
-            case Boolean(jobTypeFilter):
-                return (job) => job.jobType === jobTypeFilter.representation;
-            case Boolean(professionFilter):
-                return (job) => professionFilter.some((prof) => job.proffesionTypes.includes(prof.value)
-                );
-            default:
-                return () => true;
-        }
+        return (job) => {
+            const lowercaseTitleFilter = titleFilter.toLowerCase();
+            const lowercaseJobTitle = job.title.toLowerCase();
+            if (titleFilter && !lowercaseJobTitle.includes(lowercaseTitleFilter)) return false;
+            if (provinceFilter && job.address.province !== provinceFilter.name) return false;
+            if (cityFilter && job.address.city !== cityFilter.name) return false;
+            if (jobTypeFilter && job.jobType !== jobTypeFilter.representation) return false;
+            if (professionFilter && !professionFilter.every(prof => job.proffesionTypes.includes(prof.value))) return false;
+            return true;
+        };
     }, [titleFilter, provinceFilter, cityFilter, jobTypeFilter, professionFilter]);
 
     useEffect(() => {
         const getData = async () => {
             try {
-                const data = await dispatch(fetchAllJobs());
-                console.log(data);
+                await dispatch(fetchAllJobs());
+                setFilteredJobList(null);
             } catch (error) {
                 console.error('Error fetching Jobs :', error);
             }
         };
 
         getData();
-        // dispatch(updateFilteredOffers(jobsList));
-    }, []);
-
+    }, [dispatch]);
 
     useEffect(() => {
-        const filteredData = jobsList?.filter(filterFunction) || [];
-        console.log(filterFunction)
-        if (filteredData) {
-            dispatch(updateFilteredOffers(filteredData));
-            console.log('filteredJobs :', filteredData);
-            //clean filters
-            // dispatch(clearAllFilters())
-        };
-    }, [dispatch, jobsList, filterFunction, titleFilter, provinceFilter, cityFilter, jobTypeFilter, professionFilter]);
+        const filteredData = jobsList?.filter(filterFunction) || null;
+        setFilteredJobList(filteredData);
+    }, [jobsList, filterFunction]);
 
     useEffect(() => {
         if (!titleFilter && !provinceFilter && !cityFilter && !jobTypeFilter && !professionFilter) {
@@ -84,17 +63,35 @@ const DashboardWrap = () => {
             <OffersList>
                 <OffersListItems
                     data={
-                        filteredJobs.length > 0
-                            ? filteredJobs
+                        filteredJobList
+                            ? filteredJobList
                             : jobsList
                     } />
+                {(filteredJobList && filteredJobList.length === 0) && (<p style={{ textAlign: 'center' }}>Znaleźliśmy 0 ogłoszeń</p>)}
             </OffersList>
             <MapSearch />
         </Wrapper>
     )
 }
 
-export default DashboardWrap
+export default DashboardWrap;
 
 
-
+// const filterFunction = useMemo(() => {
+//         switch (true) {
+//             case Boolean(titleFilter):
+//                 return (job) => job.title.includes(titleFilter)
+//             // (job) => job.title === titleFilter;
+//             case Boolean(provinceFilter):
+//                 return (job) => job.address.province === provinceFilter.name;
+//             case Boolean(cityFilter):
+//                 return (job) => job.address.city === cityFilter.name;
+//             case Boolean(jobTypeFilter):
+//                 return (job) => job.jobType === jobTypeFilter.representation;
+//             case Boolean(professionFilter):
+//                 return (job) => professionFilter.some((prof) => job.proffesionTypes.includes(prof.value)
+//                 );
+//             default:
+//                 return () => true;
+//         }
+//     }, [titleFilter, provinceFilter, cityFilter, jobTypeFilter, professionFilter]);

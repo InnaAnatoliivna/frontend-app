@@ -10,7 +10,7 @@ const OffersList = ({ children }) => {
     return (
 
         <List theme={theme}>
-            <Title>Wszystkie oferty</Title>
+            <Title>Wszystkie ogłoszenia</Title>
             {children}
         </List>
     )

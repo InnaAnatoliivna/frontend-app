@@ -41,9 +41,7 @@ export default function MultipleSelectChip() {
     // console.log(jobTypeFilter)
 
     const handleChange = (event) => {
-        const {
-            target: { value },
-        } = event;
+        const { target: { value } } = event;
         setProffesionType(
             // On autofill we get a stringified value.
             typeof value === 'string' ? value.split(',') : value,

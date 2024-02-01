@@ -12,7 +12,7 @@ const LocationSelect = () => {
     const theme = useTheme();
     const selectedLocation = useSelector(selectProvinceFilter);
     const [anchorEl, setAnchorEl] = useState(null);
-    console.log('selectedLocation :', selectedLocation)
+    // console.log('selectedLocation :', selectedLocation)
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
