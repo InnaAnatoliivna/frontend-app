@@ -29,7 +29,7 @@ const DashboardWrap = () => {
             if (provinceFilter && job.address.province !== provinceFilter.name) return false;
             if (cityFilter && job.address.city !== cityFilter.name) return false;
             if (jobTypeFilter && job.jobType !== jobTypeFilter.representation) return false;
-            if (professionFilter && !professionFilter.every(prof => job.proffesionTypes.includes(prof.value))) return false;
+            if (professionFilter && !professionFilter.some(prof => job.proffesionTypes.includes(prof.value))) return false;
             return true;
         };
     }, [titleFilter, provinceFilter, cityFilter, jobTypeFilter, professionFilter]);

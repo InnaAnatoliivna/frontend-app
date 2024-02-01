@@ -11,6 +11,9 @@ import { proffesionTypesArray } from '@/utils/filterElements';
 import { useDispatch, useSelector } from 'react-redux';
 // import { selectProfessionFilter } from '@/redux/filters/selectors';
 import { updateProfessionFilter } from '@/redux/filters/filtersSlice';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { selectProfessionFilter } from '@/redux/filters/selectors';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -35,10 +38,10 @@ function getStyles(name, proffesionType, theme) {
 export default function MultipleSelectChip() {
     const theme = useTheme();
     const dispatch = useDispatch();
-    const [proffesionType, setProffesionType] = React.useState([]);
-    // const jobTypeFilter = useSelector(selectProfessionFilter);
+    const [proffesionType, setProffesionType] = useState([]);
+    const jobTypeFilter = useSelector(selectProfessionFilter);
 
-    // console.log(jobTypeFilter)
+    // console.log('slice select pr :', jobTypeFilter)
 
     const handleChange = (event) => {
         const { target: { value } } = event;
@@ -46,9 +49,12 @@ export default function MultipleSelectChip() {
             // On autofill we get a stringified value.
             typeof value === 'string' ? value.split(',') : value,
         );
-        dispatch(updateProfessionFilter(proffesionType))
     };
 
+    useEffect(() => {
+        // Оновлюємо фільтр у Redux-сторі при зміні вибраних значень
+        dispatch(updateProfessionFilter(proffesionType))
+    }, [proffesionType, dispatch]);
     // console.log(proffesionType)
 
     return (
