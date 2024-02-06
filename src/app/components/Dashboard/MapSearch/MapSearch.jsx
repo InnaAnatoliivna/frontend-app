@@ -1,16 +1,17 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as maptilersdk from '@maptiler/sdk';
 import "@maptiler/sdk/dist/maptiler-sdk.css";
+import { fetchMapFromBase, fetchMapTiles } from '@/redux/mapTiles/operations';
+import { useDispatch } from 'react-redux';
 
 
-export default function Map() {
+const MapSearch = ({ jobs }) => {
+
     const mapContainer = useRef(null);
     const map = useRef(null);
     const poland = { lng: 19.1451, lat: 51.9194 };
     const [zoom] = useState(14);
     maptilersdk.config.apiKey = process.env.NEXT_PUBLIC_MAPTILER_API_KEY;
-
-    // console.log('MAP API KEY :', process.env.NEXT_PUBLIC_MAPTILER_API_KEY)
 
     useEffect(() => {
         if (map.current) return; // stops map from intializing more than once
@@ -22,10 +23,22 @@ export default function Map() {
             zoom: zoom
         });
 
-        new maptilersdk.Marker({ color: "#FF0000" })
-            .setLngLat([139.7525, 35.6846])
-            .addTo(map.current);
-    }, [poland.lng, poland.lat, zoom]);
+        //     new maptilersdk.Marker({ color: "#000" })
+        //         .setLngLat([139.7525, 35.6846])
+        //         .addTo(map.current);
+
+        jobs?.forEach(job => {
+            const { address, jobType } = job;
+
+            // Отримати координати з адреси
+            const lngLat = [parseFloat(address.lon), parseFloat(address.lat)];
+
+            // Встановити маркер
+            new maptilersdk.Marker({ color: getColorForJobType(jobType) })
+                .setLngLat(lngLat)
+                .addTo(map.current);
+        });
+    }, [poland.lng, poland.lat, zoom, jobs]);
 
     return (
         <div className="map-wrap">
@@ -33,3 +46,5 @@ export default function Map() {
         </div>
     );
 }
+
+export default MapSearch;

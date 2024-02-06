@@ -69,7 +69,7 @@ const DashboardWrap = () => {
                     } />
                 {(filteredJobList && filteredJobList.length === 0) && (<p style={{ textAlign: 'center' }}>Znaleźliśmy 0 ogłoszeń</p>)}
             </OffersList>
-            <MapSearch />
+            <MapSearch jobs={jobsList} />
         </Wrapper>
     )
 }

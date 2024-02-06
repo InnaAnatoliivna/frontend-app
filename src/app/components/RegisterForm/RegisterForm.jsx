@@ -42,6 +42,9 @@ const RegisterForm = () => {
             .required('Required!'),
         email: yup.string().email('Invalid email format!').required('Required!'),
         password: yup.string().min(7, 'Min 7 letters!').required('Required!'),
+        repeatPassword: yup.string()
+            .oneOf([yup.ref('password'), null], 'Passwords must match')
+            .required('Required!'),
     });
 
     const formik = useFormik({
@@ -100,89 +103,114 @@ const RegisterForm = () => {
                     sx={{ mt: 3 }}
                 >
                     <Grid container spacing={2} item xs="true">
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                id="firstName"
-                                name="firstName"
-                                type="text"
-                                value={formik.values.firstName}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={
-                                    formik.touched.firstName && formik.errors.firstName
-                                        ? true
-                                        : false
-                                }
-                                helperText={formik.touched.firstName && formik.errors.firstName}
-                                title="Only letter and -"
-                                required
-                                fullWidth
-                                label="First Name"
-                                autoComplete="given-name"
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                fullWidth
-                                id="lastName"
-                                name="lastName"
-                                type="text"
-                                value={formik.values.lastName}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={
-                                    formik.touched.lastName && formik.errors.lastName
-                                        ? true
-                                        : false
-                                }
-                                helperText={formik.touched.lastName && formik.errors.lastName}
-                                pattern="[a-zA-Z\-]{2,}"
-                                title="Only latin letter and -"
-                                label="Last Name"
-                                autoComplete="family-name"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                required
-                                type="email"
-                                title="email"
-                                fullWidth
-                                id="email"
-                                value={formik.values.email}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={
-                                    formik.touched.email && formik.errors.email ? true : false
-                                }
-                                helperText={formik.touched.email && formik.errors.email}
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                id="password"
-                                name="password"
-                                type="password"
-                                value={formik.values.password}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={
-                                    formik.touched.password && formik.errors.password
-                                        ? true
-                                        : false
-                                }
-                                helperText={formik.touched.password && formik.errors.password}
-                                required
-                                fullWidth
-                                title="minimum 7 symbol "
-                                label="Password"
-                                autoComplete="new-password"
-                            />
-                        </Grid>
+                        {/* <Grid item xs={12} sm={6}> */}
+                        <TextField
+                            id="firstName"
+                            name="firstName"
+                            type="text"
+                            value={formik.values.firstName}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={
+                                formik.touched.firstName && formik.errors.firstName
+                                    ? true
+                                    : false
+                            }
+                            helperText={formik.touched.firstName && formik.errors.firstName}
+                            title="Only letter and -"
+                            required
+                            fullWidth
+                            label="First Name"
+                            autoComplete="given-name"
+                        />
+                        {/* </Grid> */}
+                        {/* <Grid item xs={12} sm={6}> */}
+                        <TextField
+                            required
+                            fullWidth
+                            id="lastName"
+                            name="lastName"
+                            type="text"
+                            value={formik.values.lastName}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={
+                                formik.touched.lastName && formik.errors.lastName
+                                    ? true
+                                    : false
+                            }
+                            helperText={formik.touched.lastName && formik.errors.lastName}
+                            pattern="[a-zA-Z\-]{2,}"
+                            title="Only latin letter and -"
+                            label="Last Name"
+                            autoComplete="family-name"
+                        />
+                        {/* </Grid>
+                        <Grid item xs={12}> */}
+                        <TextField
+                            required
+                            type="email"
+                            title="email"
+                            fullWidth
+                            id="email"
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={
+                                formik.touched.email && formik.errors.email ? true : false
+                            }
+                            helperText={formik.touched.email && formik.errors.email}
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                        />
+                        {/* </Grid> */}
+                        {/* <Grid item xs={12}> */}
+                        <TextField
+                            id="password"
+                            name="password"
+                            type="password"
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={
+                                formik.touched.password && formik.errors.password
+                                    ? true
+                                    : false
+                            }
+                            helperText={formik.touched.password && formik.errors.password}
+                            required
+                            fullWidth
+                            title="minimum 7 symbol "
+                            label="Password"
+                            autoComplete="new-password"
+                        />
+                        {/* </Grid> */}
+                        {/* <Grid item xs={12}> */}
+                        <TextField
+                            id="repeatPassword"
+                            name="repeatPassword"
+                            type="password"
+                            value={formik.values.repeatPassword}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={
+                                formik.touched.repeatPassword && formik.errors.repeatPassword
+                                    ? true
+                                    : false
+                            }
+                            helperText={
+                                formik.touched.repeatPassword && formik.errors.repeatPassword
+                                    ? formik.errors.repeatPassword
+                                    : null
+                            }
+                            required
+                            fullWidth
+                            title="Repeat the password"
+                            label="Repeat Password"
+                            autoComplete="new-password"
+                        />
+                        {/* </Grid> */}
                     </Grid>
                     <LoadingButton
                         disabled={!formik.isValid}

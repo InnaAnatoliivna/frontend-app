@@ -7,7 +7,7 @@ import api from '../api/serviceApi';
 export const fetchMapTiles = createAsyncThunk('api/MapTiles', async (_, thunkAPI) => {
     try {
         const { data } = await api.get('/api/MapTiles');
-        // console.log('map tiles :', data)
+        console.log('map tiles :', data)
         return data;
     } catch (e) {
         return thunkAPI.rejectWithValue(e.message)
