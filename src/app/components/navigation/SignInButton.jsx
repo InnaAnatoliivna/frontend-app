@@ -25,6 +25,7 @@ const SignInButton = ({ children }) => {
   return (
     <>
       <Button
+        href="/login"
         variant="contained"
         color="secondary"
         onClick={handleClick}

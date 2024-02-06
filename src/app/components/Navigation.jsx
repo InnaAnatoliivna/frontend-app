@@ -43,7 +43,7 @@ const Navigation = () => {
         <Button
           LinkComponent={Link}
           variant="outlined"
-          href="/add-offer"
+          href="/offers/create"
           sx={{
             [theme.breakpoints.down("laptop")]: { display: "none" },
             borderRadius: 'var(--border-radius-btn)',
@@ -63,15 +63,7 @@ const Navigation = () => {
           Post an Offer
         </Button>
         <SignInButton>
-          <Link
-            href='/login'
-            style={{
-              width: '100%',
-              color: "var(--color-light)",
-            }}
-          >
-            Sign in
-          </Link>
+          Sign in
         </SignInButton>
         {/* <CurrencySwitch /> */}
       </Nav>
