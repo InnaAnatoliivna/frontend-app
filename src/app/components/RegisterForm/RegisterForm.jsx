@@ -74,10 +74,10 @@ const RegisterForm = () => {
         },
     });
 
-    const handleOnClick = event => {
-        event.preventDefault();
-        router.push('/login', { replace: true });
-    };
+    // const handleOnClick = event => {
+    //     event.preventDefault();
+    //     router.push('/login', { replace: true });
+    // };
 
     return (
         <Container>
@@ -222,7 +222,7 @@ const RegisterForm = () => {
                     </LoadingButton>
                     <Grid container justifyContent="flex-end">
                         <Grid item>
-                            <Link href="#" variant="body2" onClick={handleOnClick}>
+                            <Link href="/login" variant="body2">
                                 Already have an account? Login
                             </Link>
                         </Grid>

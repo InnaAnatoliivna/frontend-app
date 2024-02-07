@@ -1,11 +1,40 @@
 import React, { useState } from 'react';
-import { TextField, Select, MenuItem, Checkbox, FormControlLabel, Button, Grid, Typography, Container } from '@mui/material';
+import { nanoid } from 'nanoid';
+import { TextField, Select, MenuItem, Checkbox, FormControlLabel, Button, Grid, Typography, InputLabel, OutlinedInput, Chip, FormControl } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import Container from '../Container/Container';
+import { jobType, proffesionTypesArray } from '@/utils/filterElements';
+import { Box } from '@mui/system';
+import { useTheme } from '@emotion/react';
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
+
+function getStyles(name, proffesionType, theme) {
+    return {
+        fontWeight:
+            proffesionType.indexOf(name) === -1
+                ? theme.typography.fontWeightRegular
+                : theme.typography.fontWeightMedium,
+    };
+}
 
 const AddOffersForm = () => {
+    const theme = useTheme();
+    const dispatch = useDispatch();
     const [title, setTitle] = useState('');
+    console.log(title) //.trim() .toLowerCase
     const [description, setDescription] = useState('');
-    const [announcementType, setAnnouncementType] = useState('');
-    const [qualifications, setQualifications] = useState([]);
+    const [gotJobType, setGotJobType] = useState('');
+    const [proffesionTypes, setProffesionTypes] = useState([]);
     const [court, setCourt] = useState('');
     const [region, setRegion] = useState('');
     const [city, setCity] = useState('');
@@ -19,17 +48,51 @@ const AddOffersForm = () => {
     const [compensationAgreement, setCompensationAgreement] = useState(false);
     const [vat, setVat] = useState(false);
 
+    // const capitalizeFirstLetter = (text) => {
+    //     return text.charAt(0).toUpperCase() + text.slice(1);
+    // };
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Your form data handling logic here
+
+        const offerData = {
+            address: {
+                city: city,
+                postalCod: postalCode,
+                province: region,
+                // id
+                // simcId
+                street: streetAddress,
+                phone: phone,
+            },
+            // addressId: nanoid(),
+            // court: {
+            //     phone: phone,
+            // },
+            // courtId
+            createdDate: date,
+            dateToDetermined: date === '' && true,
+            email: email,
+            id: nanoid(),
+            // insurance
+            jobType: gotJobType,
+            // nameOrCompany
+            // offers:[],
+            priceToDetermined: compensationAgreement,
+            proffesionTypes: [...proffesionTypes],
+            // status:
+            time: time,
+            title: title.trim(),
+            vatInvoice: vat,
+        };
+        console.log(offerData)
+        dispatch(addOffers(offerData))
     };
 
     return (
         <Container>
-            <Typography variant="h5" gutterBottom>
-                Dodawanie ogłoszenia
-            </Typography>
-            <form onSubmit={handleSubmit}>
+            <Typography variant="h5" gutterBottom>Dodawanie ogłoszenia</Typography>
+            <form onSubmit={handleSubmit} style={{ maxWidth: '500' }} >
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <TextField
@@ -51,34 +114,74 @@ const AddOffersForm = () => {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <Select
-                            label="Announcement Type"
-                            variant="outlined"
-                            fullWidth
-                            value={announcementType}
-                            onChange={(e) => setAnnouncementType(e.target.value)}
-                        >
-                            <MenuItem value="Substitution">Substitution</MenuItem>
-                            <MenuItem value="Copy of Acts">Copy of Acts</MenuItem>
-                            <MenuItem value="Other">Other</MenuItem>
-                        </Select>
+                        <FormControl sx={{ minWidth: 300 }}>
+                            <InputLabel
+                                id="demo-jobtype-select-label"
+                            // htmlFor="select-jobtype"
+                            >
+                                Rodzaj ogłoszenia
+                            </InputLabel>
+                            <Select
+                                labelId="demo-jobtype-select-label"
+                                id="demo-jobtype-select"
+                                required
+                                fullWidth
+                                value={gotJobType}
+                                label="Rodzaj ogłoszenia"
+                                onChange={(e) => setGotJobType(e.target.value)}
+                            >
+                                {jobType.map(type => {
+                                    return (
+                                        <MenuItem key={type.representation} value={type.representation}>{type.name}</MenuItem>
+                                    )
+                                })}
+                            </Select>
+                        </FormControl>
                     </Grid>
                     <Grid item xs={12}>
-                        <Select
-                            label="Qualifications"
-                            variant="outlined"
-                            fullWidth
-                            multiple
-                            value={qualifications}
-                            onChange={(e) => setQualifications(e.target.value)}
-                        >
-                            <MenuItem value="Applicant">Applicant</MenuItem>
-                            <MenuItem value="Trainee Applicant">Trainee Applicant</MenuItem>
-                            <MenuItem value="Legal Advisor">Legal Advisor</MenuItem>
-                            <MenuItem value="Trainee Legal Advisor">Trainee Legal Advisor</MenuItem>
-                            <MenuItem value="Other">Other</MenuItem>
-                        </Select>
+                        <FormControl sx={{ minWidth: 300 }}>
+                            <InputLabel
+                                id="demo-multiple-chip-label"
+                                htmlFor="select-multiple-chip"
+                            >
+                                Wymagane kwalifikacje
+                            </InputLabel>
+                            <Select
+                                sx={{ minWidth: '300' }}
+                                labelId="demo-multiple-chip-label"
+                                id="demo-multiple-chip"
+                                multiple
+                                fullWidth
+                                required
+                                value={proffesionTypes}
+                                onChange={(e) => setProffesionTypes(e.target.value)}
+                                input={<OutlinedInput id="select-multiple-chip" label="Wymagane kwalifikacje" />}
+                                renderValue={(selected) => (
+                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                        {selected.map((value) => (
+                                            <Chip key={value.name} label={value.name} />
+                                        ))}
+                                    </Box>
+                                )}
+                                MenuProps={MenuProps}
+                            >
+                                {proffesionTypesArray.map((item) => (
+                                    <MenuItem
+                                        key={item.value}
+                                        value={item}
+                                        style={getStyles(item, proffesionTypes, theme)}
+                                    >
+                                        {item.name}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
                     </Grid>
+                </Grid>
+                <Typography variant="h6" gutterBottom>
+                    Data i miejsce
+                </Typography>
+                <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <TextField
                             label="Court"
@@ -147,6 +250,11 @@ const AddOffersForm = () => {
                             onChange={(e) => setTime(e.target.value)}
                         />
                     </Grid>
+                </Grid>
+                <Typography variant="h6" gutterBottom>
+                    Dane kontaktowe
+                </Typography>
+                <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <TextField
                             label="Email"
@@ -166,6 +274,11 @@ const AddOffersForm = () => {
                             onChange={(e) => setPhone(e.target.value)}
                         />
                     </Grid>
+                </Grid>
+                <Typography variant="h6" gutterBottom>
+                    Gratyfikacja
+                </Typography>
+                <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <TextField
                             label="Compensation"

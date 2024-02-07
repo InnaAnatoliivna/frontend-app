@@ -48,10 +48,10 @@ export const LoginForm = () => {
         },
     });
 
-    const handleOnClick = event => {
-        event.preventDefault();
-        router.push('/register');
-    };
+    // const handleOnClick = event => {
+    //     event.preventDefault();
+    //     router.push('/register');
+    // };
 
     return (
         <Container component="main" maxWidth="xs">
@@ -125,7 +125,7 @@ export const LoginForm = () => {
                     <Grid container>
                         <Grid item xs="true"></Grid>
                         <Grid item>
-                            <Link href="#" variant="body2" onClick={handleOnClick}>
+                            <Link href="/register" variant="body2">
                                 {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>

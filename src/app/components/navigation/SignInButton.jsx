@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 // import PortraitSharpIcon from '@mui/icons-material/PortraitSharp';
 // import BusinessCenterSharpIcon from '@mui/icons-material/BusinessCenterSharp';
 import { useTheme } from "@mui/material";
+import Link from "next/link";
 
 const SignInButton = ({ children }) => {
   const theme = useTheme();
@@ -25,6 +26,7 @@ const SignInButton = ({ children }) => {
   return (
     <>
       <Button
+        LinkComponent={Link}
         href="/login"
         variant="contained"
         color="secondary"
@@ -37,10 +39,11 @@ const SignInButton = ({ children }) => {
               display: "none",
             },
           },
+          textDecoration: 'none',
           color:
             theme.palette.mode === "dark"
               ? "var(--color-light)"
-              : "var(--color-dark)",
+              : "var(--color-light)",
           backgroundColor:
             theme.palette.mode === "dark"
               ? "var(--color-accent);"
