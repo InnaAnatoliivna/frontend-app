@@ -274,7 +274,7 @@ const AddOffersForm = () => {
                     )}
                     <Grid item xs={6}>
                         <TextField
-                            label="Postal Code"
+                            label="Kod pocztowy"
                             variant="outlined"
                             fullWidth
                             required
@@ -284,7 +284,7 @@ const AddOffersForm = () => {
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
-                            label="Street Address"
+                            label="Ulica i nr budynku"
                             variant="outlined"
                             fullWidth
                             required
@@ -294,7 +294,7 @@ const AddOffersForm = () => {
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
-                            label="Date"
+                            label="Data rozprawy"
                             variant="outlined"
                             fullWidth
                             value={date}
@@ -303,7 +303,7 @@ const AddOffersForm = () => {
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
-                            label="Time"
+                            label="Godzina rozprawy"
                             variant="outlined"
                             fullWidth
                             value={time}
@@ -317,7 +317,7 @@ const AddOffersForm = () => {
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <TextField
-                            label="Email"
+                            label="Adres e-mail "
                             variant="outlined"
                             fullWidth
                             required
@@ -327,7 +327,7 @@ const AddOffersForm = () => {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
-                            label="Phone"
+                            label="Numer telefonu"
                             variant="outlined"
                             fullWidth
                             value={phone}
@@ -341,7 +341,7 @@ const AddOffersForm = () => {
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <TextField
-                            label="Compensation"
+                            label="Wynagrodzenie"
                             variant="outlined"
                             fullWidth
                             value={compensation}
@@ -351,13 +351,13 @@ const AddOffersForm = () => {
                     <Grid item xs={12}>
                         <FormControlLabel
                             control={<Checkbox checked={compensationAgreement} onChange={(e) => setCompensationAgreement(e.target.checked)} />}
-                            label="Compensation Agreement"
+                            label="Wynagrodzenie do uzgodnienia"
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <FormControlLabel
                             control={<Checkbox checked={vat} onChange={(e) => setVat(e.target.checked)} />}
-                            label="VAT Invoice"
+                            label="Faktura VAT"
                         />
                     </Grid>
                 </Grid>
