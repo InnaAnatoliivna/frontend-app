@@ -361,7 +361,7 @@ const AddOffersForm = () => {
                         />
                     </Grid>
                 </Grid>
-                <Button type="submit" variant="contained" color="primary">Add Announcement</Button>
+                <Button type="submit" variant="contained" color="primary">Dodać ogłoszenie</Button>
             </form>
         </Container>
     );
