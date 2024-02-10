@@ -11,6 +11,8 @@ import { fetchProvinces } from '@/redux/terc/operations';
 import { fetchCities } from '@/redux/simc/operations';
 import { selectCities } from '@/redux/simc/selectors';
 import { selectProvinces } from '@/redux/terc/selectors';
+import { validationAddOffers } from '@/utils/validationSchemes';
+import { formattingDate } from '@/utils/formsHelpers';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -38,23 +40,27 @@ const AddOffersForm = () => {
     const cities = useSelector(selectCities);
     const provinces = useSelector(selectProvinces);
     // for create object
-    const [title, setTitle] = useState(''); console.log('title :', title) //.trim() .toLowerCase
-    const [description, setDescription] = useState(''); console.log('description :', description)
-    const [gotJobType, setGotJobType] = useState(''); console.log('gotJobType :', gotJobType)
-    const [proffesionTypes, setProffesionTypes] = useState([]); console.log('proffesionTypes :', proffesionTypes)
-    const [court, setCourt] = useState(''); console.log('court :', court)
-    const [region, setRegion] = useState(''); console.log('region :', region)
-    const [city, setCity] = useState(''); console.log('city :', city)
-    const [postalCode, setPostalCode] = useState(''); console.log('postalCode :', postalCode)
-    const [streetAddress, setStreetAddress] = useState(''); console.log('streetAddress :', streetAddress)
+    const [title, setTitle] = useState(''); // console.log('title :', title) //.trim() .toLowerCase
+    const [description, setDescription] = useState('');// console.log('description :', description)
+    const [gotJobType, setGotJobType] = useState('');// console.log('gotJobType :', gotJobType)
+    const [proffesionTypes, setProffesionTypes] = useState([]);// console.log('proffesionTypes :', proffesionTypes)
+    const [court, setCourt] = useState('');// console.log('court :', court)
+    const [region, setRegion] = useState('');// console.log('region :', region)
+    const [city, setCity] = useState('');// console.log('city :', city)
+    const [postalCode, setPostalCode] = useState(''); // console.log('postalCode :', postalCode)
+    const [streetAddress, setStreetAddress] = useState('');// console.log('streetAddress :', streetAddress)
     const [date, setDate] = useState(''); console.log('date :', date)
-    const [time, setTime] = useState(''); console.log('time :', time)
-    const [email, setEmail] = useState(''); console.log('email :', email)
-    const [phone, setPhone] = useState(''); console.log('phone :', phone)
-    const [compensation, setCompensation] = useState(''); console.log('compensation :', compensation)
-    const [compensationAgreement, setCompensationAgreement] = useState(false); console.log('compensationAgreement :', compensationAgreement)
-    const [vat, setVat] = useState(false); console.log('vat :', vat)
+    const [time, setTime] = useState('');// console.log('time :', time)
+    const [email, setEmail] = useState('');// console.log('email :', email)
+    const [phone, setPhone] = useState('');// console.log('phone :', phone)
+    const [compensation, setCompensation] = useState('');// console.log('compensation :', compensation)
+    const [compensationAgreement, setCompensationAgreement] = useState(false);// console.log('compensationAgreement :', compensationAgreement)
+    const [vat, setVat] = useState(false);// console.log('vat :', vat)
+
     const [filteredCities, setFilteredCities] = useState(null);
+    const [errors, setErrors] = useState(null);
+
+    const createdDate = new Date().toISOString();// console.log(createdDate);
 
     // const capitalizeFirstLetter = (text) => {
     //     return text.charAt(0).toUpperCase() + text.slice(1);
@@ -71,8 +77,21 @@ const AddOffersForm = () => {
         setFilteredCities(filteredCities)
     }, [region, cities]);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        setErrors(null);
+        const formData = new FormData(event.target);
+        const values = Object.fromEntries(formData.entries());
+        console.log(values)
+        try {
+            await validationAddOffers.validate(values, { abortEarly: false });
+        } catch (errors) {
+            const validationErrors = {};
+            errors.inner.forEach(error => {
+                validationErrors[error.path] = error.message;
+            });
+            setErrors(validationErrors);
+        }
 
         const offerData = {
             address: {
@@ -90,7 +109,8 @@ const AddOffersForm = () => {
                 phone: phone,
             },
             // courtId
-            createdDate: date,
+            createdDate: createdDate,
+            date: date ? formattingDate(date) : '',
             dateToDetermined: date === '' && true,
             email: email,
             id: nanoid(),
@@ -101,14 +121,14 @@ const AddOffersForm = () => {
             priceToDetermined: compensationAgreement,
             proffesionTypes: proffesionTypes.map(item => item.value),
             // status:
-            time: time,
+            time: time + ':00',
             title: title.trim(),
             vatInvoice: vat,
         };
         console.log('CREATED OBJECK :', offerData)
-        dispatch(addOffers(offerData))
+        console.log('ERROR REQUEST :', errors)
+        if (!errors) dispatch(addOffers(offerData))
     };
-
     return (
         <Container>
             <Typography variant="h5" gutterBottom>Dodawanie ogłoszenia</Typography>
@@ -116,6 +136,7 @@ const AddOffersForm = () => {
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <TextField
+                            name='title'
                             label="Title"
                             variant="outlined"
                             fullWidth
@@ -124,8 +145,10 @@ const AddOffersForm = () => {
                             onChange={(e) => setTitle(e.target.value)}
                         />
                     </Grid>
+
                     <Grid item xs={12}>
                         <TextField
+                            name='description'
                             label="Description"
                             variant="outlined"
                             fullWidth
@@ -133,6 +156,7 @@ const AddOffersForm = () => {
                             onChange={(e) => setDescription(e.target.value)}
                         />
                     </Grid>
+
                     <Grid item xs={12}>
                         <FormControl sx={{ minWidth: 300 }}>
                             <InputLabel
@@ -142,6 +166,7 @@ const AddOffersForm = () => {
                                 Rodzaj ogłoszenia
                             </InputLabel>
                             <Select
+                                name='gotJobType'
                                 labelId="demo-jobtype-select-label"
                                 id="demo-jobtype-select"
                                 required
@@ -158,6 +183,7 @@ const AddOffersForm = () => {
                             </Select>
                         </FormControl>
                     </Grid>
+
                     <Grid item xs={12}>
                         <FormControl sx={{ minWidth: 300 }}>
                             <InputLabel
@@ -167,6 +193,7 @@ const AddOffersForm = () => {
                                 Wymagane kwalifikacje
                             </InputLabel>
                             <Select
+                                name='proffesionTypes'
                                 sx={{ minWidth: '300' }}
                                 labelId="demo-multiple-chip-label"
                                 id="demo-multiple-chip"
@@ -174,11 +201,7 @@ const AddOffersForm = () => {
                                 fullWidth
                                 required
                                 value={proffesionTypes}
-                                onChange={(e) => {
-                                    setProffesionTypes(e.target.value);
-                                    // const selectedValues = e.target.value.map(item => item.value);
-                                    // setProffesionTypes(selectedValues);
-                                }}
+                                onChange={(e) => setProffesionTypes(e.target.value)}
                                 input={<OutlinedInput id="select-multiple-chip" label="Wymagane kwalifikacje" />}
                                 renderValue={(selected) => (
                                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
@@ -202,6 +225,7 @@ const AddOffersForm = () => {
                         </FormControl>
                     </Grid>
                 </Grid>
+
                 <Typography variant="h6" gutterBottom>
                     Data i miejsce
                 </Typography>
@@ -214,6 +238,7 @@ const AddOffersForm = () => {
                                 Sąd
                             </InputLabel>
                             <Select
+                                name='court'
                                 labelId="demo-court-select-label"
                                 id="demo-court-select"
                                 required
@@ -230,10 +255,12 @@ const AddOffersForm = () => {
                             </Select>
                         </FormControl>
                     </Grid>
+
                     <Grid item xs={6}>
                         <FormControl sx={{ minWidth: 200 }}>
                             <InputLabel id="province-name">Województwo</InputLabel>
                             <Select
+                                name='region'
                                 labelId="province-name"
                                 id="province-dropdown-name"
                                 value={region}
@@ -251,39 +278,49 @@ const AddOffersForm = () => {
                         </FormControl>
                     </Grid>
 
-                    {region && (
-                        <Grid item xs={6}>
-                            <FormControl sx={{ minWidth: 200 }}>
-                                <InputLabel id="city-name">Miejscowość</InputLabel>
-                                <Select
-                                    labelId="city-name"
-                                    id="city-dropdown-name"
-                                    value={city}
-                                    label="Miejscowość"
-                                    onChange={(e) => setCity(e.target.value)}
-                                >
-                                    <MenuItem value="">Wszystko</MenuItem>
-                                    {filteredCities?.map((city) => (
+                    <Grid item xs={6}>
+                        <FormControl sx={{ minWidth: 200 }}>
+                            <InputLabel id="city-name">Miejscowość</InputLabel>
+                            <Select
+                                name='city'
+                                labelId="city-name"
+                                id="city-dropdown-name"
+                                value={city}
+                                label="Miejscowość"
+                                onChange={(e) => setCity(e.target.value)}
+                            >
+                                {region
+                                    ? filteredCities.map((city) => (
                                         <MenuItem key={city.id} value={city}>
                                             {city.name}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                    )}
+                                        </MenuItem>))
+                                    : <MenuItem value="">najpierw wybierz województwo</MenuItem>
+                                }
+                            </Select>
+                        </FormControl>
+                    </Grid>
+
                     <Grid item xs={6}>
                         <TextField
+                            name='postalCode'
                             label="Kod pocztowy"
                             variant="outlined"
                             fullWidth
                             required
                             value={postalCode}
-                            onChange={(e) => setPostalCode(e.target.value)}
+                            onChange={(e) => {
+                                const inputValue = e.target.value;
+                                const formattedPostalCode = inputValue
+                                    .replace(/[^0-9]/g, '')
+                                    .replace(/(.{2})/, '$1-');
+                                setPostalCode(formattedPostalCode);
+                            }}
                         />
                     </Grid>
+
                     <Grid item xs={6}>
                         <TextField
+                            name='streetAddress'
                             label="Ulica i nr budynku"
                             variant="outlined"
                             fullWidth
@@ -292,31 +329,56 @@ const AddOffersForm = () => {
                             onChange={(e) => setStreetAddress(e.target.value)}
                         />
                     </Grid>
+
                     <Grid item xs={6}>
                         <TextField
-                            label="Data rozprawy"
+                            name='date'
+                            label="Data rozprawy (DD-MM-YYYY)"
                             variant="outlined"
                             fullWidth
                             value={date}
-                            onChange={(e) => setDate(e.target.value)}
+                            onChange={(e) => {
+                                // setDate(e.target.value)
+                                const inputDate = e.target.value;
+                                let formattedDate = inputDate.replace(/\D/g, ''); // видаляємо всі нечислові символи
+                                if (formattedDate.length > 2) {
+                                    formattedDate = formattedDate.slice(0, 2) + '-' + formattedDate.slice(2);
+                                }
+                                if (formattedDate.length > 5) {
+                                    formattedDate = formattedDate.slice(0, 5) + '-' + formattedDate.slice(5);
+                                }
+                                setDate(formattedDate);
+                            }}
                         />
                     </Grid>
+
                     <Grid item xs={6}>
                         <TextField
+                            name='time'
                             label="Godzina rozprawy"
                             variant="outlined"
                             fullWidth
                             value={time}
-                            onChange={(e) => setTime(e.target.value)}
+                            onChange={(e) => {
+                                // setTime(e.target.value)
+                                const inputTime = e.target.value;
+                                let formattedTime = inputTime.replace(/\D/g, ''); // видаляємо всі нечислові символи
+                                if (formattedTime.length > 2) {
+                                    formattedTime = formattedTime.slice(0, 2) + ':' + formattedTime.slice(2);
+                                }
+                                setTime(formattedTime);
+                            }}
                         />
                     </Grid>
                 </Grid>
+
                 <Typography variant="h6" gutterBottom>
                     Dane kontaktowe
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <TextField
+                            name='email'
                             label="Adres e-mail "
                             variant="outlined"
                             fullWidth
@@ -325,8 +387,10 @@ const AddOffersForm = () => {
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </Grid>
+
                     <Grid item xs={12}>
                         <TextField
+                            name='phone'
                             label="Numer telefonu"
                             variant="outlined"
                             fullWidth
@@ -335,12 +399,14 @@ const AddOffersForm = () => {
                         />
                     </Grid>
                 </Grid>
+
                 <Typography variant="h6" gutterBottom>
                     Gratyfikacja
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <TextField
+                            name='compensation'
                             label="Wynagrodzenie"
                             variant="outlined"
                             fullWidth
@@ -348,22 +414,32 @@ const AddOffersForm = () => {
                             onChange={(e) => setCompensation(e.target.value)}
                         />
                     </Grid>
+
                     <Grid item xs={12}>
                         <FormControlLabel
                             control={<Checkbox checked={compensationAgreement} onChange={(e) => setCompensationAgreement(e.target.checked)} />}
                             label="Wynagrodzenie do uzgodnienia"
                         />
                     </Grid>
+
                     <Grid item xs={12}>
                         <FormControlLabel
+                            // name='invoice'
                             control={<Checkbox checked={vat} onChange={(e) => setVat(e.target.checked)} />}
                             label="Faktura VAT"
                         />
                     </Grid>
                 </Grid>
+
                 <Button type="submit" variant="contained" color="primary">Dodać ogłoszenie</Button>
             </form>
-        </Container>
+            {errors && (
+                <div>
+                    {Object.entries(errors).map(([key, value]) => (
+                        <p key={key}>{value}</p>
+                    ))}
+                </div>
+            )}        </Container>
     );
 };
 
