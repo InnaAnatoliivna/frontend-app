@@ -111,7 +111,7 @@ const AddOffersForm = () => {
                 "hours": hours,
                 "milliseconds": 0,
                 "minutes": minutes,
-                "seconds": seconds
+                "seconds": 0
             },
             "dateToDetermined": date === '' ? true : false,
             "email": email,
