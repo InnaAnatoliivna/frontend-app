@@ -361,7 +361,7 @@ const AddOffersForm = () => {
                                 if (formattedTime.length > 2) {
                                     formattedTime = formattedTime.slice(0, 2) + ':' + formattedTime.slice(2);
                                 }
-                                setTime(formattedTime + ':00');
+                                setTime(formattedTime);
                             }}
                         />
                     </Grid>
