@@ -24,15 +24,15 @@ const AddOffersForm = () => {
     const dispatch = useDispatch();
     const cities = useSelector(selectCities);
     const provinces = useSelector(selectProvinces);
-    const courtsList = useSelector(selectCourtList); console.log('court list :', courtsList)//////
-    const currentCourt = useSelector(selectCurrentCourt); console.log('current court :', currentCourt)/////
+    const courtsList = useSelector(selectCourtList); // console.log('court list :', courtsList)//////
+    const currentCourt = useSelector(selectCurrentCourt); // console.log('current court :', currentCourt)/////
 
-    const autoPostalCode = useSelector(selectPostalCode); console.log('auto postal code:', autoPostalCode)/////
+    const autoPostalCode = useSelector(selectPostalCode); // console.log('auto postal code:', autoPostalCode)/////
     const autoRegionId = useSelector(selectTercId);
-    const autoRegion = autoRegionId ? provinces.find(province => province.id === autoRegionId) : null; console.log('auto region :', autoRegion)////////
+    const autoRegion = autoRegionId ? provinces.find(province => province.id === autoRegionId) : null; // console.log('auto region :', autoRegion)////////
     const autoCityId = useSelector(selectSimcId);
-    const autoCity = autoCityId ? cities.find(city => city.id === autoCityId) : null; console.log('auto sity :', autoCity)////////
-    const autoStreet = useSelector(selectStreet); console.log('auto street :', autoStreet)////////
+    const autoCity = autoCityId ? cities.find(city => city.id === autoCityId) : null; // console.log('auto sity :', autoCity)////////
+    const autoStreet = useSelector(selectStreet); // console.log('auto street :', autoStreet)////////
 
     // for create object
     const [title, setTitle] = useState(''); // console.log('title :', title) //.trim() .toLowerCase
