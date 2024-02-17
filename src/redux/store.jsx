@@ -17,6 +17,7 @@ import { citiesReducer } from './simc/simsSlice';
 import { provincesReducer } from './terc/tercSlice';
 import { usersReducer } from './users/usersSlice';
 import { filtersReducer } from './filters/filtersSlice';
+import { courtReducer } from './court/courtSlice';
 
 const authPersistConfig = {
     key: 'auth',
@@ -33,7 +34,8 @@ export const store = configureStore({
         cities: citiesReducer,
         provinces: provincesReducer,
         users: usersReducer,
-        filters: filtersReducer
+        filters: filtersReducer,
+        court: courtReducer
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware({

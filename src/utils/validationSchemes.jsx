@@ -4,7 +4,7 @@ export const validationAddOffers = Yup.object().shape({
     title: Yup.string().min(4, "Najmniej 4 litery!").required('Pole tytułu jest obowiązkowe'),
     description: Yup.string(),
     gotJobType: Yup.number().required('Wybierz rodzaj ogłoszenia'),
-    proffesionTypes: Yup.array().min(1, 'Wybierz przynajmniej jedną kwalifikację').required(),
+    // proffesionTypes: Yup.array().required(1, 'Wybierz przynajmniej jedną kwalifikację'),
     court: Yup.string().required('Wybierz sąd'),
     region: Yup.string().required('Wybierz region'),
     city: Yup.string().required('Wybierz miasto'),
@@ -20,5 +20,5 @@ export const validationAddOffers = Yup.object().shape({
     time: Yup.string(),
     email: Yup.string().required().email('Wprowadź poprawny adres email'),
     phone: Yup.string().required(),
-    compensation: Yup.string().required(),
+    compensation: Yup.number(),
 });

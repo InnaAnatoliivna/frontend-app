@@ -14,28 +14,11 @@ import { updateProfessionFilter } from '@/redux/filters/filtersSlice';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { selectProfessionFilter } from '@/redux/filters/selectors';
+import { MenuProps, getStyles } from '@/utils/formsHelpers';
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-    PaperProps: {
-        style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-        },
-    },
-};
-
-function getStyles(name, proffesionType, theme) {
-    return {
-        fontWeight:
-            proffesionType.indexOf(name) === -1
-                ? theme.typography.fontWeightRegular
-                : theme.typography.fontWeightMedium,
-    };
-}
 
 export default function MultipleSelectChip() {
+
     const theme = useTheme();
     const dispatch = useDispatch();
     const [proffesionType, setProffesionType] = useState([]);

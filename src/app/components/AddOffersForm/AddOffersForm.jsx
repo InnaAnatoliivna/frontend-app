@@ -1,81 +1,85 @@
 import React, { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
-import { TextField, Select, MenuItem, Checkbox, FormControlLabel, Button, Grid, Typography, InputLabel, OutlinedInput, Chip, FormControl } from '@mui/material';
+import { TextField, Select, MenuItem, Checkbox, FormControlLabel, Button, Grid, Typography, InputLabel, OutlinedInput, Chip, FormControl, Autocomplete } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import Container from '../Container/Container';
 import { courtTypes, jobType, proffesionTypesArray } from '@/utils/filterElements';
 import { Box } from '@mui/system';
 import { useTheme } from '@emotion/react';
-import { addOffers } from '@/redux/offers/operations';
 import { fetchProvinces } from '@/redux/terc/operations';
 import { fetchCities } from '@/redux/simc/operations';
 import { selectCities } from '@/redux/simc/selectors';
 import { selectProvinces } from '@/redux/terc/selectors';
 import { validationAddOffers } from '@/utils/validationSchemes';
-import { formattingDate } from '@/utils/formsHelpers';
+import { MenuProps, formattingDate, getStyles } from '@/utils/formsHelpers';
+import { addJob } from '@/redux/jobs/operations';
+import { fetchAddressByCourtsId, fetchCourts } from '@/redux/court/operations';
+import { selectCourtList, selectCurrentCourt, selectPostalCode, selectSimcId, selectStreet, selectTercId } from '@/redux/court/selectors';
+import { setCurrentCourt } from '@/redux/court/courtSlice';
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-    PaperProps: {
-        style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-        },
-    },
-};
-
-function getStyles(name, proffesionType, theme) {
-    return {
-        fontWeight:
-            proffesionType.indexOf(name) === -1
-                ? theme.typography.fontWeightRegular
-                : theme.typography.fontWeightMedium,
-    };
-}
 
 const AddOffersForm = () => {
+
     const theme = useTheme();
     const dispatch = useDispatch();
     const cities = useSelector(selectCities);
     const provinces = useSelector(selectProvinces);
+    const courtsList = useSelector(selectCourtList); console.log('court list :', courtsList)//////
+    const currentCourt = useSelector(selectCurrentCourt); console.log('current court :', currentCourt)/////
+
+    const autoPostalCode = useSelector(selectPostalCode); console.log('auto postal code:', autoPostalCode)/////
+    const autoRegionId = useSelector(selectTercId);
+    const autoRegion = autoRegionId ? provinces.find(province => province.id === autoRegionId) : null; console.log('auto region :', autoRegion)////////
+    const autoCityId = useSelector(selectSimcId);
+    const autoCity = autoCityId ? cities.find(city => city.id === autoCityId) : null; console.log('auto sity :', autoCity)////////
+    const autoStreet = useSelector(selectStreet); console.log('auto street :', autoStreet)////////
+
     // for create object
     const [title, setTitle] = useState(''); // console.log('title :', title) //.trim() .toLowerCase
     const [description, setDescription] = useState('');// console.log('description :', description)
     const [gotJobType, setGotJobType] = useState('');// console.log('gotJobType :', gotJobType)
-    const [proffesionTypes, setProffesionTypes] = useState([]);// console.log('proffesionTypes :', proffesionTypes)
+    const [proffesionTypes, setProffesionTypes] = useState([]); // console.log('proffesionTypes :', proffesionTypes)
     const [court, setCourt] = useState('');// console.log('court :', court)
     const [region, setRegion] = useState('');// console.log('region :', region)
     const [city, setCity] = useState('');// console.log('city :', city)
     const [postalCode, setPostalCode] = useState(''); // console.log('postalCode :', postalCode)
     const [streetAddress, setStreetAddress] = useState('');// console.log('streetAddress :', streetAddress)
-    const [date, setDate] = useState(''); console.log('date :', date)
+    const [date, setDate] = useState(''); // console.log('date :', date)
     const [time, setTime] = useState('');// console.log('time :', time)
     const [email, setEmail] = useState('');// console.log('email :', email)
     const [phone, setPhone] = useState('');// console.log('phone :', phone)
-    const [compensation, setCompensation] = useState('');// console.log('compensation :', compensation)
+    const [compensation, setCompensation] = useState(0);// console.log('compensation :', compensation)
     const [compensationAgreement, setCompensationAgreement] = useState(false);// console.log('compensationAgreement :', compensationAgreement)
     const [vat, setVat] = useState(false);// console.log('vat :', vat)
 
     const [filteredCities, setFilteredCities] = useState(null);
     const [errors, setErrors] = useState(null);
 
-    const createdDate = new Date().toISOString();// console.log(createdDate);
-
-    // const capitalizeFirstLetter = (text) => {
-    //     return text.charAt(0).toUpperCase() + text.slice(1);
-    // };
+    // const createdDate = new Date().toISOString();// console.log(createdDate);
+    const [hours, minutes, seconds] = time.split(':').map(value => parseInt(value));
 
     useEffect(() => {
         dispatch(fetchProvinces());
         dispatch(fetchCities());
+        dispatch(fetchCourts())
     }, [dispatch]);
     useEffect(() => {
         const filteredCities =
-            cities.filter(city => city.woj === region.woj);
-        // console.log(filteredCities)
+            cities.filter(city => city.woj === region?.woj); // console.log(filteredCities)
         setFilteredCities(filteredCities)
     }, [region, cities]);
+    useEffect(() => {
+        if (currentCourt) dispatch(fetchAddressByCourtsId(currentCourt.id))
+    }, [dispatch, currentCourt]);
+    useEffect(() => {
+        if (currentCourt) {
+            setCourt(currentCourt)
+            setRegion(autoRegion);
+            setCity(autoCity);
+            setPostalCode(autoPostalCode);
+            setStreetAddress(autoStreet)
+        }
+    }, [autoStreet, autoCity, autoRegion, autoPostalCode, currentCourt])
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -92,42 +96,42 @@ const AddOffersForm = () => {
             });
             setErrors(validationErrors);
         }
-
-        const offerData = {
-            address: {
-                city: city.name,
-                postalCod: postalCode,
-                province: region.name,
-                // id
-                // simcId
-                street: streetAddress,
-                phone: phone,
+        const data = {
+            "title": title.trim(),
+            "price": compensation,
+            "priceToDetermined": compensationAgreement,
+            "description": description,
+            "jobType": gotJobType,
+            "courtId": currentCourt.id,
+            "courtDepartment": currentCourt.name,
+            "date": date ? formattingDate(date) : '',
+            "time": {
+                "ticks": 0,
+                "days": 0,
+                "hours": hours,
+                "milliseconds": 0,
+                "minutes": minutes,
+                "seconds": seconds
             },
-            // addressId: nanoid(),
-            court: {
-                name: court.label,
-                phone: phone,
-            },
-            // courtId
-            createdDate: createdDate,
-            date: date ? formattingDate(date) : '',
-            dateToDetermined: date === '' && true,
-            email: email,
-            id: nanoid(),
-            // insurance
-            jobType: gotJobType,
-            // nameOrCompany
-            // offers:[],
-            priceToDetermined: compensationAgreement,
-            proffesionTypes: proffesionTypes.map(item => item.value),
-            // status:
-            time: time + ':00',
-            title: title.trim(),
-            vatInvoice: vat,
-        };
-        console.log('CREATED OBJECK :', offerData)
+            "dateToDetermined": date === '' ? true : false,
+            "email": email,
+            "phone": phone,
+            "proffesionTypes": proffesionTypes.map(item => item.value),
+            "vatInvoice": vat,
+            "createdById": nanoid(),
+            // "nameOrCompany": "string",
+            "provinceId": region.id,
+            "address": {
+                "street": streetAddress,
+                "city": city.name,
+                "postalCode": postalCode,
+                "province": region.name,
+                "simcId": autoCityId
+            }
+        }
+        console.log('CREATED OBJECT :', data)
         console.log('ERROR REQUEST :', errors)
-        if (!errors) dispatch(addOffers(offerData))
+        if (!errors) dispatch(addJob(data));
     };
     return (
         <Container>
@@ -232,27 +236,16 @@ const AddOffersForm = () => {
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <FormControl sx={{ minWidth: 200 }}>
-                            <InputLabel
-                                id="demo-court-select-label"
-                            >
-                                Sąd
-                            </InputLabel>
-                            <Select
-                                name='court'
-                                labelId="demo-court-select-label"
-                                id="demo-court-select"
-                                required
-                                fullWidth
-                                value={court}
-                                label="Sąd"
-                                onChange={(e) => setCourt(e.target.value)}
-                            >
-                                {courtTypes.map(type => {
-                                    return (
-                                        <MenuItem key={type.value} value={type}>{type.label}</MenuItem>
-                                    )
-                                })}
-                            </Select>
+                            <Autocomplete
+                                disablePortal
+                                id="combo-box-demo"
+                                options={courtsList ? courtsList.map(court => ({ label: court.name, value: court })) : []}
+                                getOptionLabel={(option) => option.label}
+                                // getOptionSelected={(option, value) => option.id === value.id}
+                                sx={{ width: 300 }}
+                                renderInput={(params) => <TextField {...params} label="Sąd" />}
+                                onChange={(event, value) => dispatch(setCurrentCourt(value.value))}
+                            />
                         </FormControl>
                     </Grid>
 
@@ -287,7 +280,9 @@ const AddOffersForm = () => {
                                 id="city-dropdown-name"
                                 value={city}
                                 label="Miejscowość"
-                                onChange={(e) => setCity(e.target.value)}
+                                onChange={(e) => {
+                                    setCity(e.target.value)
+                                }}
                             >
                                 {region
                                     ? filteredCities.map((city) => (
@@ -366,7 +361,7 @@ const AddOffersForm = () => {
                                 if (formattedTime.length > 2) {
                                     formattedTime = formattedTime.slice(0, 2) + ':' + formattedTime.slice(2);
                                 }
-                                setTime(formattedTime);
+                                setTime(formattedTime + ':00');
                             }}
                         />
                     </Grid>
@@ -444,3 +439,39 @@ const AddOffersForm = () => {
 };
 
 export default AddOffersForm;
+
+
+// const offerData = {
+//     // jobs: {
+//     "address": {
+//         "city": city.name,
+//         "postalCod": postalCode,
+//         "province": region.name,
+//         // id
+//         // simcId
+//         "street": streetAddress,
+//         "phone": phone,
+//     },
+//     // addressId: nanoid(),
+//     "court": {
+//         "name": court.label,
+//         "phone": phone,
+//     },
+//     // courtId
+//     "createdDate": createdDate,
+//     "date": date ? formattingDate(date) : '',
+//     "dateToDetermined": date === '' && true,
+//     "email": email,
+//     "id": nanoid(),
+//     // insurance
+//     "jobType": gotJobType,
+//     // nameOrCompany
+//     // offers:[],
+//     "priceToDetermined": compensationAgreement,
+//     "proffesionTypes": proffesionTypes.map(item => item.value),
+//     // status:
+//     "time": time + ':00',
+//     "title": title.trim(),
+//     "vatInvoice": vat,
+//     // }
+// };
