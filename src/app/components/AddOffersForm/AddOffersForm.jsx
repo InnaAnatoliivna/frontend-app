@@ -131,7 +131,7 @@ const AddOffersForm = () => {
         }
         console.log('CREATED OBJECT :', data)
         console.log('ERROR REQUEST :', errors)
-        if (!errors) dispatch(addJob(data));
+        // if (!errors) dispatch(addJob(data));
     };
     return (
         <Container>
@@ -239,6 +239,7 @@ const AddOffersForm = () => {
                             <Autocomplete
                                 disablePortal
                                 id="combo-box-demo"
+                                // value={court}
                                 options={courtsList ? courtsList.map(court => ({ label: court.name, value: court })) : []}
                                 getOptionLabel={(option) => option.label}
                                 // getOptionSelected={(option, value) => option.id === value.id}

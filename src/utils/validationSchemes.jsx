@@ -5,7 +5,7 @@ export const validationAddOffers = Yup.object().shape({
     description: Yup.string(),
     gotJobType: Yup.number().required('Wybierz rodzaj ogłoszenia'),
     // proffesionTypes: Yup.array().required(1, 'Wybierz przynajmniej jedną kwalifikację'),
-    court: Yup.string().required('Wybierz sąd'),
+    // court: Yup.string().required('Wybierz sąd'),
     region: Yup.string().required('Wybierz region'),
     city: Yup.string().required('Wybierz miasto'),
     postalCode: Yup.string()
