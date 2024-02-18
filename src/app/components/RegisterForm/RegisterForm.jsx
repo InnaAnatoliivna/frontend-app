@@ -57,10 +57,11 @@ const RegisterForm = () => {
         },
         validationSchema,
         onSubmit: values => {
-            const { firstName, lastName, email, password } = formik.values;
+            const { firstName, lastName, email, password, repeatPassword } = formik.values;
             dispatch(
                 signUpUser({
-                    name: `${firstName.trim()} ${lastName.trim()}`,
+                    firstName: `${firstName.trim()}`,
+                    lastName: `${lastName.trim()}`,
                     email: email,
                     password: password,
                 })
