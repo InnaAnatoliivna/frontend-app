@@ -7,11 +7,16 @@ import { format, parseISO } from 'date-fns';
 import ArticleIcon from '@mui/icons-material/Article';
 import { Card, LastWrap, MainWrapper } from './OffersListItems.styled';
 import { useTheme } from '@emotion/react';
+import { useRouter } from 'next/router';
 
 
 const OffersListItems = ({ data }) => {
     const theme = useTheme();
+    const router = useRouter();
 
+    const handleCardClick = (id) => {
+        router.push(`/job/${id}`);
+    };
 
     return (
         <>
@@ -25,7 +30,11 @@ const OffersListItems = ({ data }) => {
                     const date = dateObject ? format(dateObject, 'dd.MM.yyyy') : null;
 
                     return (
-                        <Card key={job.id} theme={theme}>
+                        <Card
+                            key={job.id}
+                            theme={theme}
+                            onClick={() => handleCardClick(job.id)}
+                        >
                             <a>
                                 <MainWrapper>
                                     <div>

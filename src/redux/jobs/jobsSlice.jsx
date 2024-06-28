@@ -29,7 +29,8 @@ const jobsSlice = createSlice({
             .addCase(fetchJobById.rejected, handleRejectedSecond)
             //
             .addCase(addJob.fulfilled, (state, action) => {
-                state.jobs.push(action.payload);
+                // state.jobs.push(action.payload);
+                state.jobs = action.payload
             })
             .addCase(addJob.rejected, handleRejectedSecond)
             //

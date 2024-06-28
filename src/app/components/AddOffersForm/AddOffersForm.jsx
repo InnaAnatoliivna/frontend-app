@@ -56,7 +56,8 @@ const AddOffersForm = () => {
     const [errors, setErrors] = useState(null);
 
     // const createdDate = new Date().toISOString();// console.log(createdDate);
-    const [hours, minutes, seconds] = time.split(':').map(value => parseInt(value));
+    const timeTest = time + ':00'
+    const [hours, minutes, seconds] = timeTest.split(':').map(value => parseInt(value));
 
     useEffect(() => {
         dispatch(fetchProvinces());
@@ -86,7 +87,7 @@ const AddOffersForm = () => {
         setErrors(null);
         const formData = new FormData(event.target);
         const values = Object.fromEntries(formData.entries());
-        console.log(values)
+        // console.log(values)
         try {
             await validationAddOffers.validate(values, { abortEarly: false });
         } catch (errors) {
@@ -102,8 +103,8 @@ const AddOffersForm = () => {
             "priceToDetermined": compensationAgreement,
             "description": description,
             "jobType": gotJobType,
-            "courtId": currentCourt.id,
-            "courtDepartment": currentCourt.name,
+            "courtId": court.id,
+            "courtDepartment": court.name,
             "date": date ? formattingDate(date) : '',
             "time": {
                 "ticks": 0,
@@ -111,7 +112,7 @@ const AddOffersForm = () => {
                 "hours": hours,
                 "milliseconds": 0,
                 "minutes": minutes,
-                "seconds": 0
+                "seconds": seconds
             },
             "dateToDetermined": date === '' ? true : false,
             "email": email,
@@ -119,7 +120,7 @@ const AddOffersForm = () => {
             "proffesionTypes": proffesionTypes.map(item => item.value),
             "vatInvoice": vat,
             "createdById": nanoid(),
-            // "nameOrCompany": "string",
+            "nameOrCompany": "",
             "provinceId": region.id,
             "address": {
                 "street": streetAddress,
@@ -132,6 +133,7 @@ const AddOffersForm = () => {
         console.log('CREATED OBJECT :', data)
         console.log('ERROR REQUEST :', errors)
         if (!errors) dispatch(addJob(data));
+        // dispatch(addJob(data))
     };
     return (
         <Container>

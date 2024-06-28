@@ -45,11 +45,13 @@ export const fetchJobById = createAsyncThunk('api/Jobs/GetJob', async (id, thunk
 export const addJob = createAsyncThunk('api/Jobs/Create',
     async (job, thunkAPI) => {
         try {
-            const state = thunkAPI.getState();
-            const token = state.auth.token;
-            const headers = { Authorization: `Bearer ${token}` };
+            // const state = thunkAPI.getState();
+            // const token = state.auth.token;
+            // const headers = { Authorization: `Bearer ${token}` };
 
-            const { data } = await api.post('/api/Jobs/Create', job, { headers });
+            // const { data } = await api.post('/api/Jobs/Create', job, { headers });
+            const { data } = await api.post('/api/Jobs/Create', job);
+
             console.log('added this job :', data)
             return data;
         } catch (e) {
