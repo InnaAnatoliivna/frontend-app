@@ -15,14 +15,18 @@ const OffersListItems = ({ data }) => {
     const router = useRouter();
 
     const handleCardClick = (id) => {
-        router.push(`/job/${id}`);
+        if (Array.isArray(data)) router.push(`/job/${id}`);
+        // else return
     };
+
+    const jobsArray = Array.isArray(data) ? data : [data];
+    const isInteractive = Array.isArray(data);
 
     return (
         <>
             {
                 data &&
-                data.map(job => {
+                jobsArray.map(job => {
                     const createDateObject = parseISO(job.createdDate);
                     const createdDate = format(createDateObject, 'dd.MM.yyyy');
 
@@ -33,7 +37,9 @@ const OffersListItems = ({ data }) => {
                         <Card
                             key={job.id}
                             theme={theme}
-                            onClick={() => handleCardClick(job.id)}
+                            // onClick={() => handleCardClick(job.id)}
+                            {...(Array.isArray(data) && { onClick: () => handleCardClick(job.id) })}
+                            style={{ cursor: isInteractive ? 'pointer' : 'default' }}
                         >
                             <a>
                                 <MainWrapper>

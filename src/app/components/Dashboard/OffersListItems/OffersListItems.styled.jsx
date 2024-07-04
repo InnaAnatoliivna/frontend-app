@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 export const MainWrapper = styled.div`
 display: flex;
 gap: 10px;
-
 `;
 
 export const Card = styled.li`

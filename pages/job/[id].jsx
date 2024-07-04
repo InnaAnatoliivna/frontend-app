@@ -6,6 +6,9 @@ import { selectJobs } from '@/redux/jobs/selectors';
 import SharedLayout from '@/app/components/SharedLayout';
 import Container from '@/app/components/Container/Container';
 import { fetchAllJobs } from '@/redux/jobs/operations';
+import JobsCard from '@/app/components/JobsDescription/JobInfo/JobsCard';
+import OffersListItems from '@/app/components/Dashboard/OffersListItems/OffersListItems';
+import DescriptionCard from '@/app/components/JobsDescription/DescriptionCard/DescriptionCard';
 
 const JobPage = () => {
     const dispatch = useDispatch();
@@ -53,11 +56,10 @@ const JobPage = () => {
         <SharedLayout>
             <Container>
                 {currentJob ? (
-                    <>
-                        <h1>{currentJob.title}</h1>
-                        <p>{currentJob.description}</p>
-                        <p>Location: {currentJob.address?.city}</p>
-                    </>
+                    <JobsCard jobsDescription={currentJob}>
+                        <OffersListItems data={currentJob} />
+                        <DescriptionCard data={currentJob} />
+                    </JobsCard>
                 ) : (
                     <div>Job not found</div>
                 )}
