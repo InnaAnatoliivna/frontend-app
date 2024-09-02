@@ -6,6 +6,7 @@ gap: 10px;
 `;
 
 export const Card = styled.li`
+list-style: none;
 padding: 5px 10px;
 margin: 0 12px 12px 12px;
 /* background-color: #2C2C2C; */

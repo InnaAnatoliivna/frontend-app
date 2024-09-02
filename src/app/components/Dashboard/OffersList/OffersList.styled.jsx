@@ -5,6 +5,7 @@ export const List = styled.ul`
     height: 100vh;
     overflow: auto;
     background-color: var(--color-dark);
+    list-style: none;
 
     background-color: ${({ theme }) =>
         theme.palette.mode === "dark" ? "var(--color-dark)" : "var(--color-light)"

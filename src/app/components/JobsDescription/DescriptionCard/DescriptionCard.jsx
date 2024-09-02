@@ -1,5 +1,6 @@
 import { jobType, proffesionTypesArray } from '@/utils/filterElements'
 import React from 'react'
+import { Wrapper } from './DescriptionCard.styled'
 
 const DescriptionCard = ({ data }) => {
 
@@ -8,7 +9,7 @@ const DescriptionCard = ({ data }) => {
 
 
     return (
-        <div>
+        <Wrapper>
             <div>
                 <h3>Rodzaj zawodu: {getJobType.name}</h3>
                 <h3>Rodzaj pracy: {getJobType.name}</h3>
@@ -23,7 +24,7 @@ const DescriptionCard = ({ data }) => {
                 <p><strong>E-mail: </strong>{data.court.email}</p>
                 <p><strong>Faks: </strong>{data.court.fax}</p>
             </div>
-        </div>
+        </Wrapper>
     )
 }
 
