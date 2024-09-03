@@ -4,14 +4,13 @@ import { Wrapper } from './DescriptionCard.styled'
 
 const DescriptionCard = ({ data }) => {
 
-    const getJobType = jobType.find(type => data.court.type === type.representation)
-    // const getProffesionTypes = proffesionTypesArray.find(type => data.court.type === type.value)
-
+    const getJobType = jobType.find(type => data.jobType === type.representation)
+    const getProffesionType = proffesionTypesArray.filter(type => data.proffesionTypes.includes(type.value)).map(type => type.name);
 
     return (
         <Wrapper>
             <div>
-                <h3>Rodzaj zawodu: {getJobType.name}</h3>
+                <h3>Rodzaj zawodu: {getProffesionType.join(', ')}</h3>
                 <h3>Rodzaj pracy: {getJobType.name}</h3>
                 <p><strong>Szczególowy adres: </strong>
                     {data.address.street},
