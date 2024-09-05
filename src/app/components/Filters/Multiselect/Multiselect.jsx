@@ -22,7 +22,7 @@ export default function MultipleSelectChip() {
     const theme = useTheme();
     const dispatch = useDispatch();
     const [proffesionType, setProffesionType] = useState([]);
-    // const jobTypeFilter = useSelector(selectProfessionFilter);
+    const jobTypeFilter = useSelector(selectProfessionFilter);
 
     // console.log('slice select pr :', jobTypeFilter)
 
@@ -35,10 +35,12 @@ export default function MultipleSelectChip() {
     };
 
     useEffect(() => {
-        // Оновлюємо фільтр у Redux-сторі при зміні вибраних значень
         dispatch(updateProfessionFilter(proffesionType))
-    }, [proffesionType, dispatch]);
+    }, [proffesionType, jobTypeFilter, dispatch]);
     // console.log(proffesionType)
+
+
+
 
     return (
         <div>
