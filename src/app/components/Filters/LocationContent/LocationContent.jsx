@@ -97,7 +97,7 @@ const LocationContent = ({ handleClickButton }) => {
                 onClick={handleClickButton}
             >
                 <SearchIcon />
-                Szukaj
+                Pokaż
             </ButtonFind>
         </Wrapper>
     );

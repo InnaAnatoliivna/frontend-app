@@ -21,7 +21,7 @@ const SearchInput = () => {
             <InputStyled
                 placeholder='Search'
                 variant="outlined"
-                value={inputValue}
+                value={inputValue} // last change
                 startAdornment={
                     <InputAdornment position="start">
                         <SearchIcon style={{ fontSize: '25px' }} />

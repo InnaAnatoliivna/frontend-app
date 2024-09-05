@@ -9,11 +9,10 @@ import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 import { proffesionTypesArray } from '@/utils/filterElements';
 import { useDispatch, useSelector } from 'react-redux';
-// import { selectProfessionFilter } from '@/redux/filters/selectors';
 import { updateProfessionFilter } from '@/redux/filters/filtersSlice';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { selectProfessionFilter } from '@/redux/filters/selectors';
+// import { selectProfessionFilter } from '@/redux/filters/selectors';
 import { MenuProps, getStyles } from '@/utils/formsHelpers';
 
 
@@ -22,7 +21,7 @@ export default function MultipleSelectChip() {
     const theme = useTheme();
     const dispatch = useDispatch();
     const [proffesionType, setProffesionType] = useState([]);
-    const jobTypeFilter = useSelector(selectProfessionFilter);
+    // const jobTypeFilter = useSelector(selectProfessionFilter);
 
     // console.log('slice select pr :', jobTypeFilter)
 
@@ -36,11 +35,9 @@ export default function MultipleSelectChip() {
 
     useEffect(() => {
         dispatch(updateProfessionFilter(proffesionType))
-    }, [proffesionType, jobTypeFilter, dispatch]);
+    }, [proffesionType, dispatch]);
+
     // console.log(proffesionType)
-
-
-
 
     return (
         <div>

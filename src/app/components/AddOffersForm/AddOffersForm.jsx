@@ -99,7 +99,7 @@ const AddOffersForm = () => {
         }
         const data = {
             "title": title.trim(),
-            "price": compensation,
+            "price": Number(compensation),
             "priceToDetermined": compensationAgreement,
             "description": description,
             "jobType": gotJobType,
@@ -114,13 +114,14 @@ const AddOffersForm = () => {
                 "minutes": minutes,
                 "seconds": seconds
             },
+            // "time": `${hours}:${minutes}:${seconds}`,
             "dateToDetermined": date === '' ? true : false,
             "email": email,
             "phone": phone,
             "proffesionTypes": proffesionTypes.map(item => item.value),
             "vatInvoice": vat,
             "createdById": nanoid(),
-            "nameOrCompany": "",
+            "nameOrCompany": "YourCompanyName",
             "provinceId": region.id,
             "address": {
                 "street": streetAddress,
@@ -128,7 +129,8 @@ const AddOffersForm = () => {
                 "postalCode": postalCode,
                 "province": region.name,
                 "simcId": autoCityId
-            }
+            },
+            // "model": 1
         }
         console.log('CREATED OBJECT :', data)
         console.log('ERROR REQUEST :', errors)
