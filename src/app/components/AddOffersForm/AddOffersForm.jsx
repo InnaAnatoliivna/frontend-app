@@ -97,6 +97,11 @@ const AddOffersForm = () => {
             });
             setErrors(validationErrors);
         }
+        // below is problem in backend, because this object is identical with
+        // that one of example from your Swagger.
+        // backend demands "The model field is required."
+        // FOR FIELD 'time' >> requires a JSON primitive value 
+        // (e.g.string, number, boolean, null)
         const data = {
             "title": title.trim(),
             "price": Number(compensation),
