@@ -9,7 +9,7 @@ import { updateTitleFilter } from '@/redux/filters/filtersSlice';
 const SearchInput = () => {
     const theme = useTheme();
     const dispatch = useDispatch();
-    // const inputValue = useSelector(selectTitleFilter);
+    const inputValue = useSelector(selectTitleFilter);
 
     const handleSearchInput = e => {
         dispatch(updateTitleFilter(e.target.value.trim()));
@@ -21,6 +21,7 @@ const SearchInput = () => {
             <InputStyled
                 placeholder='Search'
                 variant="outlined"
+                value={inputValue}
                 startAdornment={
                     <InputAdornment position="start">
                         <SearchIcon style={{ fontSize: '25px' }} />
