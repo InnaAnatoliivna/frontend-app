@@ -21,6 +21,7 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 ## Deploy on Vercel
 
 [Vercel Platform](https://lawyer-app-web.vercel.app).
+(https://vercel.com/innaanatoliivnas-projects/lawyer-app-web)
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
