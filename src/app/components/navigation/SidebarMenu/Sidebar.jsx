@@ -152,7 +152,7 @@ const Sidebar = ({ open, setOpen }) => {
         }}
       >
         <SignInSelectButton
-          startIcon={<FaceOutlinedIcon />}
+          // startIcon={}
           href="/devs"
           sx={{
             "& .MuiButton-startIcon": {
@@ -165,24 +165,7 @@ const Sidebar = ({ open, setOpen }) => {
             },
           }}
         >
-          Sign in as a developer
-        </SignInSelectButton>
-        <SignInSelectButton
-          startIcon={<WorkOutlineOutlinedIcon />}
-          href="/users/sign_in"
-          sx={{
-            [breakpoints.down("laptop")]: {
-              display: "none",
-            },
-            "& .MuiButton-startIcon": {
-              backgroundColor: "rgb(243, 229, 245)",
-              "& svg": {
-                color: "rgb(171, 71, 188)",
-              },
-            },
-          }}
-        >
-          Sign in to Employer Panel
+          Zaloguj się
         </SignInSelectButton>
       </Box>
       <Box

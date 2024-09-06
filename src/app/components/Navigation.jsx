@@ -27,19 +27,11 @@ const Navigation = () => {
       <Logo />
 
       <Nav>
-        {/* <Description>#1 Job Board for tech industry in Europe</Description> */}
         <ThemeSwitchButton
           checked={mode === "dark"}
           onChange={handleToggleColorMode}
           theme={theme}
         />
-        {/* <MenuLinksBox>
-          {menuElements.map((node) => (
-            <MenuLink key={node.title} href={node.href}>
-              {node.title}
-            </MenuLink>
-          ))}
-        </MenuLinksBox> */}
         <Button
           LinkComponent={Link}
           variant="outlined"
@@ -60,12 +52,11 @@ const Navigation = () => {
 
           }}
         >
-          Post an Offer
+          Dodaj ogloszenie
         </Button>
         <SignInButton>
-          Sign in
+          Zaloguj się
         </SignInButton>
-        {/* <CurrencySwitch /> */}
       </Nav>
       <Box
         width="68px"
