@@ -140,7 +140,6 @@ const AddOffersForm = () => {
         console.log('CREATED OBJECT :', data)
         console.log('ERROR REQUEST :', errors)
         if (!errors) dispatch(addJob(data));
-        // dispatch(addJob(data))
     };
     return (
         <Container>

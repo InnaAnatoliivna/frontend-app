@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { InputAdornment, useTheme } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import { InputStyled } from './SearchInput.styled';
@@ -16,18 +16,20 @@ const SearchInput = () => {
     };
     // console.log('>>>>>>>>>>>', inputValue)
 
+
     return (
         <div>
             <InputStyled
                 placeholder='Search'
                 variant="outlined"
-                value={inputValue} // last change
+                value={inputValue || ""} // last change
                 startAdornment={
                     <InputAdornment position="start">
                         <SearchIcon style={{ fontSize: '25px' }} />
                     </InputAdornment>
                 }
-                onInput={handleSearchInput}
+                // onInput={handleSearchInput}
+                onChange={handleSearchInput}
             >
             </InputStyled>
         </div>
